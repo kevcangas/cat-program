@@ -15,7 +15,7 @@ with open(REQUIREMENTS_PATH, 'r') as f:
 
 #setup
 setup(
-   name='programa_gato',
+   name='programa_rasp',
    version='0.0.1',
    description='Este programa contiene todo el control del gato perteneciente a la raspberry',
    author='KevCangas',
