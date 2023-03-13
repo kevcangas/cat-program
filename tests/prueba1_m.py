@@ -6,9 +6,10 @@ import time
 import adafruit_dht
 import requests
 
+
 #LIBRERIAS LOCALES
 from functions.ConexionServidor import prueba_un_dato
-from functions.DHT11 import lectura_temperatura
+from functions.DHT11 import lectura_temperatura_humedad
 
 
 #INFORMACION PARA LA APP MOVIL
@@ -23,7 +24,7 @@ DHT = adafruit_dht.DHT11(PIN_DHT)
 
 #PROGRAMA PRINCIPAL
 def run():
-    temperatura = lectura_temperatura(DHT)
+    temperatura, humedad = lectura_temperatura_humedad(DHT)
     requests.post(URL_SERVIDOR + PAGINA, prueba_un_dato(temperatura))
     time.sleep(10)
 
