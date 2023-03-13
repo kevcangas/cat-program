@@ -6,6 +6,7 @@ import time
 import adafruit_dht
 import requests
 
+
 #LIBRERIAS LOCALES
 from functions.ConexionServidor import prueba_un_dato
 from functions.DHT11 import lectura_temperatura
