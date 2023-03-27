@@ -1,0 +1,9 @@
+README.md
+setup.py
+C:/Users/kevin/Desktop/10moSemestre/TT2/Programacion/programa_rasp/__init__.py
+C:/Users/kevin/Desktop/10moSemestre/TT2/Programacion/programa_rasp/__main__.py
+programa_rasp.egg-info/PKG-INFO
+programa_rasp.egg-info/SOURCES.txt
+programa_rasp.egg-info/dependency_links.txt
+programa_rasp.egg-info/requires.txt
+programa_rasp.egg-info/top_level.txt
