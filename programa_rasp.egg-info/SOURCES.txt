@@ -1,8 +1,0 @@
-README.md
-setup.py
-/home/gato/TT2/programa_gato/__init__.py
-/home/gato/TT2/programa_gato/__main__.py
-programa_rasp.egg-info/PKG-INFO
-programa_rasp.egg-info/SOURCES.txt
-programa_rasp.egg-info/dependency_links.txt
-programa_rasp.egg-info/top_level.txt
