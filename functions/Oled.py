@@ -45,11 +45,14 @@ def mostrar_imagen(imagenes,oled1:ssd1306,oled2:ssd1306):
     oled2.clear()
     oled1.display(imagenes[0])
     oled2.display(imagenes[1])
-    return
 
 
 #Realiza lo mismo que la función anterior pero con una pantalla
 def mostrar_imagen_una_pantalla(imagenes,oled1:ssd1306):
     oled1.clear()
     oled1.display(imagenes[0])
-    return
+
+
+#Entry point
+if __name__ == '__main__':
+    print('This is a module')

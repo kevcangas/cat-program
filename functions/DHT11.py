@@ -1,5 +1,7 @@
 #Librería para la lectura de temperatura y humedad
 
+
+#Esta función entrega la temepratura y humedad detectada
 def lectura_temperatura_humedad(DHT, temperatura):
     try:
         temperatura = DHT.temperature
@@ -9,6 +11,7 @@ def lectura_temperatura_humedad(DHT, temperatura):
     return temperatura, humedad
 
 
+#Esta función entrega la temperatura del sensor
 def lectura_temperatura(DHT, temperatura_inicial):
     try:
         temperatura = DHT.temperature
@@ -17,7 +20,12 @@ def lectura_temperatura(DHT, temperatura_inicial):
         return temperatura_inicial
     
 
-
+#Esta función entrega la humedad detectada
 def lectura_humedad(DHT):
     humedad = DHT.humidity
     return humedad
+
+
+#Entry point
+if __name__ == '__main__':
+    print('This is a module')
