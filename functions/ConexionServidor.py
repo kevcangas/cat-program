@@ -16,10 +16,14 @@ def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = False):
     }
     if verbose: print(data)
     requests.post(URL_SERVIDOR + PAGINA, data)
-    return
 
 
 #Regresa un diccionario con la información recibida de la página
 def recepcion_datos(URL_SERVIDOR, PAGINA_REC):
     response = requests.get(URL_SERVIDOR + PAGINA_REC)
     return response.json()
+
+
+#Entry point
+if __name__ == '__main__':
+    print('This is a module')

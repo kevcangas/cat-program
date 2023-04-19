@@ -74,3 +74,8 @@ def deteccion_expresiones(cap, detector_rostros, red_convolucional, verbose:bool
         raise ValueError("Programa Detenido")
 
     return etiqueta
+
+
+#Entry point
+if __name__ == '__main__':
+    print('This is a module')
