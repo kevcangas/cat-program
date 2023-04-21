@@ -11,12 +11,13 @@ def run():
     PIN_PIR = 27
     configuracion_HC(PIN_PIR)
 
-    for _ in range(30):
-        if deteccion_presencia:
+    for i in range(30):
+        print(f"Medición {i}: ")
+        if deteccion_presencia(PIN_PIR):
             print("Se detectó presencia")
         else:
             print("No se ha detectado presencia")
-        time.sleep(1)
+        time.sleep(2)
 
 
 if __name__ == '__main__':

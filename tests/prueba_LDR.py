@@ -11,8 +11,9 @@ def run():
     PIN_PIR = 4
     configuracion_LDR(PIN_PIR)
 
-    for _ in range(30):
-        if deteccion_luz:
+    for i in range(30):
+        print(f"Medición {i}: ")
+        if deteccion_luz(PIN_PIR):
             print("Se detectó luz")
         else:
             print("No se ha detectado luz")

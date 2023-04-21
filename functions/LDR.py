@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-import time
 
 
 #Configura el pin a utilizar para el sensor 
@@ -10,7 +9,7 @@ def configuracion_LDR(PIN_LDR):
 
 #Devuelve un true si detecta presencia
 def deteccion_luz(PIN_LDR):
-    luz = GPIO.input(PIN_LDR)
+    luz = not GPIO.input(PIN_LDR)
     return luz
 
 
