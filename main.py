@@ -1,5 +1,6 @@
 #python
 import subprocess
+import time
 
 
 #OpenCV2
@@ -29,7 +30,7 @@ def run():
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
     PAGINA_ENCENDIDO = "/control/gato/1/encendido/"
-    encendido = ConexionServidor.comunicacion_encendido(URL_SERVIDOR, PAGINA_ENCENDIDO)
+    ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO, 1)
 
 
     #INICIALIZACION RED NEURONAL Y CAMARA
@@ -79,17 +80,25 @@ def run():
     #Posición inicial
     PT, PD =  Servomotores.cargar_rutina(rutina)
     Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
+    time.sleep(5000)
 
 
+    #Programa principal de ejecución
     while True:
 
         #Lectura de la aplicación movil
         data_recibida = ConexionServidor.recepcion_datos(URL_SERVIDOR, PAGINA_REC)
         
         if data_recibida:
-            rutina = data_recibida['rutina']
-            expresion = data_recibida['expresion']
-            encendido = data_recibida['encendido']
+
+            rutina_leida = data_recibida['rutina']
+            expresion_leida = data_recibida['expresion']
+            
+            if rutina_leida != 7:
+                rutina = rutina_leida
+            
+            if expresion_leida != 7:
+                expresion = expresion_leida
 
 
         #Lectura de sensores
@@ -131,8 +140,17 @@ def run():
 
         
         #Toma de decisión si se apaga
-        if not encendido:
+        if rutina == 10:
+            ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO, 0)
             subprocess.run("sudo shutdown -h now", shell=True)
+        
+        #Selección de rutina automaticamente
+        elif rutina == 7:
+            pass
+
+        #Selección de rutina manual
+        else:
+            pass
 
 
 #Entry point

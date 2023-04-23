@@ -37,9 +37,14 @@ def lectura_encendido(URL_SERVIDOR, PAGINA):
     
 
 #Coloca el encendido del gato en la base de datos
-def comunicacion_encendido(URL_SERVIDOR, PAGINA):
+def comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA, ENCENDIDO_APAGADO):
+    data = {
+        "encendido": ENCENDIDO_APAGADO,
+        "rutina": 7,
+        "expresion": 7
+    }
     try:
-        response = requests.post(URL_SERVIDOR + PAGINA, {"encendido": 1})
+        requests.post(URL_SERVIDOR + PAGINA, data)
         return True
     except:
         return False
