@@ -1,3 +1,7 @@
+#python
+import subprocess
+
+
 #OpenCV2
 import cv2
 
@@ -24,17 +28,24 @@ def run():
     URL_SERVIDOR = 'http://169.254.2.167:80'
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
+    PAGINA_ENCENDIDO = "/control/gato/1/encendido/"
+    encendido = ConexionServidor.comunicacion_encendido(URL_SERVIDOR, PAGINA_ENCENDIDO)
 
 
     #INICIALIZACION RED NEURONAL Y CAMARA
     cap = cv2.VideoCapture(0)
     DETECTOR_ROSTRO = DER.cargar_Cascade()
     RED_CONVOLUCIONAL = DER.cargar_CNN()
+    etiqueta_expresion = ''
 
 
     #CONFIGURACIÓN PANTALLA Y CARGA DE IMAGENES A LA MEMORIA
     IMAGENES = Oled.carga_imagenes()
-    OLED = Oled.configuracion_pantalla(1, 0x3C)
+    OLED_1 = Oled.configuracion_pantalla(1, 0x3C)
+    OLED_2 = Oled.configuracion_pantalla(1, 0x3C)
+    #Expresiión inicial
+    expresion = 0
+    Oled.mostrar_imagen(IMAGENES[expresion], OLED_1, OLED_2)
 
 
     #CONFIGURACIÓN SENSOR DHT11
@@ -59,11 +70,69 @@ def run():
 
 
     #CONFIGURACIÓN SENSOR MQ2
-    MQ2 = MQ2.configuracion_MQ2()
+    SENSOR_HUMO = MQ2.configuracion_MQ2()
 
 
     #CONFIGURACIÓN SERVOMOTORES
     CONTROL_SERVOS = Servomotores.configuracion_servomotores()
+    rutina = 0
+    #Posición inicial
+    PT, PD =  Servomotores.cargar_rutina(rutina)
+    Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
+
+
+    while True:
+
+        #Lectura de la aplicación movil
+        data_recibida = ConexionServidor.recepcion_datos(URL_SERVIDOR, PAGINA_REC)
+        
+        if data_recibida:
+            rutina = data_recibida['rutina']
+            expresion = data_recibida['expresion']
+            encendido = data_recibida['encendido']
+
+
+        #Lectura de sensores
+        temperatura = DHT11.lectura_temperatura(DHT, temp_inicial)
+        temp_inicial = temperatura
+        gas_humo = MQ2.medicion_gas(SENSOR_HUMO)
+        presencia = HCXX.deteccion_presencia(PIN_PIR)
+        luz = LDR.deteccion_luz(PIN_LDR)
+        tacto = HW139.deteccion_caricia(PIN_HW139)
+        conectado = 1
+
+        
+        #Lectura de las expresiones
+        try:
+            for _ in range(10):
+                etiqueta_expresion = DER.deteccion_expresiones(cap,
+                                        DETECTOR_ROSTRO, 
+                                        RED_CONVOLUCIONAL, 
+                                        verbose=False, 
+                                        mostrar_ima=False)
+
+        except ValueError as ve:
+            print(ve)
+
+        
+        #Envio de las lecturas al servidor
+        ConexionServidor.envio_datos(
+            URL_SERVIDOR,
+            PAGINA_ENV,
+            [temperatura, 
+             gas_humo, 
+             presencia,
+             luz,tacto,
+             etiqueta_expresion,
+             conectado,
+             rutina,
+             expresion]
+        )
+
+        
+        #Toma de decisión si se apaga
+        if not encendido:
+            subprocess.run("sudo shutdown -h now", shell=True)
 
 
 #Entry point

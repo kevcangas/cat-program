@@ -20,8 +20,29 @@ def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = False):
 
 #Regresa un diccionario con la información recibida de la página
 def recepcion_datos(URL_SERVIDOR, PAGINA_REC):
-    response = requests.get(URL_SERVIDOR + PAGINA_REC)
-    return response.json()
+    try:
+        response = requests.get(URL_SERVIDOR + PAGINA_REC)
+        return response.json()
+    except:
+        return False
+
+
+#Lee el comando de encendido o apagado
+def lectura_encendido(URL_SERVIDOR, PAGINA):
+    try:
+        response = requests.get(URL_SERVIDOR + PAGINA)
+        return response.json()
+    except:
+        return False
+    
+
+#Coloca el encendido del gato en la base de datos
+def comunicacion_encendido(URL_SERVIDOR, PAGINA):
+    try:
+        response = requests.post(URL_SERVIDOR + PAGINA, {"encendido": 1})
+        return True
+    except:
+        return False
 
 
 #Entry point
