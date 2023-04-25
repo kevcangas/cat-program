@@ -96,8 +96,14 @@ def run():
     Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
     #Rutinas
     RUTINAS_NEUTRAL = [0, 1, 2, 6]
+    
+    mov_activado = False
+    tiempo_inicial = time.time()
 
+
+    #Espera del programa
     time.sleep(5000)
+
 
     #Programa principal de ejecución
     while True:
@@ -123,7 +129,10 @@ def run():
         gas_humo = MQ2.medicion_gas(SENSOR_HUMO)
         presencia = HCXX.deteccion_presencia(PIN_PIR)
         luz = LDR.deteccion_luz(PIN_LDR)
-        tacto = HW139.deteccion_caricia(PIN_HW139)
+        tacto = (HW139.deteccion_caricia(PIN_HW139_1) or 
+                 HW139.deteccion_caricia(PIN_HW139_2) or
+                 HW139.deteccion_caricia(PIN_HW139_3) or
+                 HW139.deteccion_caricia(PIN_HW139_4) )
         conectado = 1
 
         
@@ -163,19 +172,25 @@ def run():
         #Selección de rutina automaticamente
         elif rutina == 7:
             
-            aux_rutina = 0
+            rutina_aux = 0
             
 
             #Detección expresión neutra
             if etiqueta_expresion == 0:
 
                 tiempo_actual = time.now()
-                try:
-                    if tiempo_actual - tiempo_inical > 60:
-                        rutina_seleccionada = random.choice(RUTINAS_NEUTRAL)
-                except:
+
+                if tiempo_actual - tiempo_inicial > 120:
                     rutina_seleccionada = random.choice(RUTINAS_NEUTRAL)
-                    tiempo_inicial = time.now()                 
+                    tiempo_inicial = time.time()
+            
+                    if rutina_seleccionada != rutina_aux and mov_activado:
+                        Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
+                        rutina_aux = rutina_seleccionada
+                        mov_activado = True
+
+                    if tiempo_actual - tiempo_inicial > 30:
+                        Servomotores.realizarRutinaP2(CONTROL_SERVOS, rutina_seleccionada)
 
 
         #Selección de rutina manual
