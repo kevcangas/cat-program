@@ -46,6 +46,11 @@ def run():
     IMAGENES = Oled.carga_imagenes()
     OLED_1 = Oled.configuracion_pantalla(1, 0x3C)
     OLED_2 = Oled.configuracion_pantalla(1, 0x3C)
+    #Expresiones extablecidas para cada expresión detectada
+    EXPRESIONES_NEUTRAL = [2, 4]
+    EXPRESIONES_FELICIDAD = [1]
+    EXPRESIONES_ENOJO = [1,3]
+    EXPRESIONES_TRISTEZA = [1,5]
     #Expresiión inicial
     expresion = 0
     Oled.mostrar_imagen(IMAGENES[expresion], OLED_1, OLED_2)
@@ -90,8 +95,11 @@ def run():
     PT, PD =  Servomotores.cargar_rutina(rutina)
     Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
     #Rutinas
-    RUTINAS_NEUTRAL = [0, 1, 2, 6]
-    
+    RUTINAS_NEUTRAL = [0, 1, 2, 4, 6]
+    RUTINAS_FELICIDAD = [1, 3]
+    RUTINAS_ENOJO = [2, 5]
+    RUTINAS_TRISTEZA = [0, 1 ,2] 
+    #Variables de control
     mov_activado = False
     rutina_aux = 0
     tiempo_inicial = time.time()
@@ -159,7 +167,7 @@ def run():
              expresion]
         )
 
-        
+
         #Toma de decisión si se apaga
         if rutina == 10:
             ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO, 0)
@@ -168,8 +176,40 @@ def run():
         #Selección de rutina automaticamente
         elif rutina == 7:
         
-            #Detección expresión neutra
+            #Detección expresión enojo
             if etiqueta_expresion == 0:
+
+                tiempo_actual = time.now()
+                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                    tiempo_actual, 
+                    tiempo_inicial, 
+                    CONTROL_SERVOS, 
+                    RUTINAS_ENOJO,
+                    rutina_aux, 
+                    mov_activado,
+                    EXPRESIONES_ENOJO,
+                    OLED_1,
+                    OLED_2
+                    )
+
+            #Detección expresión felicidad
+            if etiqueta_expresion == 1:
+
+                tiempo_actual = time.now()
+                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                    tiempo_actual, 
+                    tiempo_inicial, 
+                    CONTROL_SERVOS, 
+                    RUTINAS_FELICIDAD,
+                    rutina_aux, 
+                    mov_activado,
+                    EXPRESIONES_FELICIDAD,
+                    OLED_1,
+                    OLED_2
+                    )
+                
+            #Detección expresión neutra
+            if etiqueta_expresion == 2:
 
                 tiempo_actual = time.now()
                 tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
@@ -178,12 +218,28 @@ def run():
                     CONTROL_SERVOS, 
                     RUTINAS_NEUTRAL,
                     rutina_aux, 
-                    mov_activado
+                    mov_activado,
+                    EXPRESIONES_NEUTRAL,
+                    OLED_1,
+                    OLED_2
                     )
-
                 
+            #Detección expresión tristeza
+            if etiqueta_expresion == 3:
 
-
+                tiempo_actual = time.now()
+                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                    tiempo_actual, 
+                    tiempo_inicial, 
+                    CONTROL_SERVOS, 
+                    RUTINAS_TRISTEZA,
+                    rutina_aux, 
+                    mov_activado,
+                    EXPRESIONES_TRISTEZA,
+                    OLED_1,
+                    OLED_2
+                    )
+                
         #Selección de rutina manual
         else:
             pass
