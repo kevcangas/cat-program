@@ -1,6 +1,7 @@
 #python
 import subprocess
 import time
+import random
 
 
 #OpenCV2
@@ -20,6 +21,12 @@ from functions import Oled
 from functions import Servomotores
 
 
+# def seleccion_rutina(cola: queue, lista_rutinas):
+#     rutina_seleccionada = random.choice(lista_rutinas)
+#     cola.put(rutina_seleccionada)
+#     time.sleep(60)
+
+
 #Programa principal
 def run():
 
@@ -37,7 +44,7 @@ def run():
     cap = cv2.VideoCapture(0)
     DETECTOR_ROSTRO = DER.cargar_Cascade()
     RED_CONVOLUCIONAL = DER.cargar_CNN()
-    etiqueta_expresion = ''
+    etiqueta_expresion = 0
 
 
     #CONFIGURACIÓN PANTALLA Y CARGA DE IMAGENES A LA MEMORIA
@@ -61,8 +68,15 @@ def run():
 
 
     #CONFIGURACIÓN SENSOR HW139
-    PIN_HW139 = 17
-    HW139.configuracion_HW139(PIN_HW139)
+    PIN_HW139_1 = 17
+    HW139.configuracion_HW139(PIN_HW139_1)
+    PIN_HW139_2 = 23
+    HW139.configuracion_HW139(PIN_HW139_2)
+    PIN_HW139_3 = 24
+    HW139.configuracion_HW139(PIN_HW139_3)
+    PIN_HW139_4 = 25
+    HW139.configuracion_HW139(PIN_HW139_4)
+
 
     
     #CONFIGURACIÓN SENSOR LDR
@@ -80,8 +94,10 @@ def run():
     #Posición inicial
     PT, PD =  Servomotores.cargar_rutina(rutina)
     Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
-    time.sleep(5000)
+    #Rutinas
+    RUTINAS_NEUTRAL = [0, 1, 2, 6]
 
+    time.sleep(5000)
 
     #Programa principal de ejecución
     while True:
@@ -146,7 +162,21 @@ def run():
         
         #Selección de rutina automaticamente
         elif rutina == 7:
-            pass
+            
+            aux_rutina = 0
+            
+
+            #Detección expresión neutra
+            if etiqueta_expresion == 0:
+
+                tiempo_actual = time.now()
+                try:
+                    if tiempo_actual - tiempo_inical > 60:
+                        rutina_seleccionada = random.choice(RUTINAS_NEUTRAL)
+                except:
+                    rutina_seleccionada = random.choice(RUTINAS_NEUTRAL)
+                    tiempo_inicial = time.now()                 
+
 
         #Selección de rutina manual
         else:

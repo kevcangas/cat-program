@@ -1,7 +1,13 @@
+#python
 import time
+import random
 from math import pi
+
+
+#externas
 from mat4py import loadmat
 from adafruit_servokit import ServoKit
+
 
 
 def configuracion_servomotores():
@@ -77,3 +83,23 @@ def movPatas(pca,
     POSICION_SERVOS = [matD['q0v'][0][i], matD['q1v'][0][i], matD['q2v'][0][i]]
     for j,k in PATAD_2,POSICION_SERVOS:
         pca.servo[j].angle = k*pi/180
+
+
+#Realiza el movimiento de la primera mitad de la rutina
+def realizarRutinaP1(pca, rutina_seleccionada):
+    PT,PD = cargar_rutina(rutina_seleccionada)
+    pasos_movimientos = len(PT['q0v'][0][:])
+    control_pasos = pasos_movimientos//2-1
+
+    for i in range(control_pasos):
+        movPatas(pca, PT, PD, i, i)
+
+
+#Esta función realiza el movimiento de la segunda mitad de la rutina
+def realizarRutinaP2(pca, rutina_seleccionada):
+    PT,PD = cargar_rutina(rutina_seleccionada)
+    pasos_movimientos = len(PT['q0v'][0][:])
+    control_pasos = pasos_movimientos//2-1
+
+    for i in range(control_pasos, pasos_movimientos):
+        movPatas(pca, PT, PD, i, i)
