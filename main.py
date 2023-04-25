@@ -19,12 +19,7 @@ from functions import LDR
 from functions import MQ2
 from functions import Oled
 from functions import Servomotores
-
-
-# def seleccion_rutina(cola: queue, lista_rutinas):
-#     rutina_seleccionada = random.choice(lista_rutinas)
-#     cola.put(rutina_seleccionada)
-#     time.sleep(60)
+from functions import FuncionesPrincipales as FP
 
 
 #Programa principal
@@ -98,11 +93,12 @@ def run():
     RUTINAS_NEUTRAL = [0, 1, 2, 6]
     
     mov_activado = False
+    rutina_aux = 0
     tiempo_inicial = time.time()
 
 
     #Espera del programa
-    time.sleep(5000)
+    time.sleep(5)
 
 
     #Programa principal de ejecución
@@ -171,26 +167,21 @@ def run():
         
         #Selección de rutina automaticamente
         elif rutina == 7:
-            
-            rutina_aux = 0
-            
-
+        
             #Detección expresión neutra
             if etiqueta_expresion == 0:
 
                 tiempo_actual = time.now()
+                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                    tiempo_actual, 
+                    tiempo_inicial, 
+                    CONTROL_SERVOS, 
+                    RUTINAS_NEUTRAL,
+                    rutina_aux, 
+                    mov_activado
+                    )
 
-                if tiempo_actual - tiempo_inicial > 120:
-                    rutina_seleccionada = random.choice(RUTINAS_NEUTRAL)
-                    tiempo_inicial = time.time()
-            
-                    if rutina_seleccionada != rutina_aux and mov_activado:
-                        Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
-                        rutina_aux = rutina_seleccionada
-                        mov_activado = True
-
-                    if tiempo_actual - tiempo_inicial > 30:
-                        Servomotores.realizarRutinaP2(CONTROL_SERVOS, rutina_seleccionada)
+                
 
 
         #Selección de rutina manual
