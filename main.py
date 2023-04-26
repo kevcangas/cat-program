@@ -142,12 +142,17 @@ def run():
         
         #Lectura de las expresiones
         try:
-            for _ in range(10):
-                etiqueta_expresion = DER.deteccion_expresiones(cap,
+            expresiones_aux = []
+            for _ in range(5):
+                expresiones_aux.append(DER.deteccion_expresiones(
+                                        cap,
                                         DETECTOR_ROSTRO, 
                                         RED_CONVOLUCIONAL, 
                                         verbose=False, 
-                                        mostrar_ima=False)
+                                        mostrar_ima=False
+                                        ))
+            
+            etiqueta_expresion = max(set(expresiones_aux), key=expresiones_aux.count)
 
         except ValueError as ve:
             print(ve)
@@ -193,7 +198,7 @@ def run():
                     )
 
             #Detección expresión felicidad
-            if etiqueta_expresion == 1:
+            elif etiqueta_expresion == 1:
 
                 tiempo_actual = time.now()
                 tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
@@ -209,7 +214,7 @@ def run():
                     )
                 
             #Detección expresión neutra
-            if etiqueta_expresion == 2:
+            elif etiqueta_expresion == 2:
 
                 tiempo_actual = time.now()
                 tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
@@ -225,7 +230,7 @@ def run():
                     )
                 
             #Detección expresión tristeza
-            if etiqueta_expresion == 3:
+            elif etiqueta_expresion == 3:
 
                 tiempo_actual = time.now()
                 tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
@@ -242,7 +247,19 @@ def run():
                 
         #Selección de rutina manual
         else:
-            pass
+            _ , rutina_aux, mov_activado = FP.rutinaControlada(
+                tiempo_actual, 
+                tiempo_inicial, 
+                CONTROL_SERVOS, 
+                [rutina],
+                rutina_aux, 
+                mov_activado,
+                [expresion],
+                OLED_1,
+                OLED_2,
+                automatico=False
+                )
+            
 
 
 #Entry point

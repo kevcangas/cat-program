@@ -17,10 +17,11 @@ def rutinaControlada(tiempo_actual,
                      mov_activado,
                      IMAGENES,
                      oled1,
-                     oled2
+                     oled2,
+                     automatico = True
                      ):
 
-    if tiempo_actual - tiempo_inicial > 120:
+    if tiempo_actual - tiempo_inicial > 120 and automatico:
         rutina_seleccionada = random.choice(rutinas)
         expresion = random.choice(IMAGENES)
         Oled.mostrar_imagen(expresion, oled1, oled2)
