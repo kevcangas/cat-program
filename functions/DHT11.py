@@ -1,4 +1,9 @@
 #Librería para la lectura de temperatura y humedad
+import adafruit_dht
+
+
+def configuracion_DHT11(DHT_PIN):
+    return adafruit_dht.DHT11(DHT_PIN)
 
 
 #Esta función entrega la temepratura y humedad detectada

@@ -73,7 +73,7 @@ def deteccion_expresiones(cap, detector_rostros, red_convolucional, verbose:bool
     if cv2.waitKey(1) == ord('q'):
         raise ValueError("Programa Detenido")
 
-    return etiqueta
+    return prediccion
 
 
 #Entry point
