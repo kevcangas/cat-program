@@ -1,7 +1,6 @@
 #python
 import subprocess
 import time
-import random
 
 
 #OpenCV2
