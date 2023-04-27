@@ -21,7 +21,7 @@ def run():
                                     detector_rostros, 
                                     red_convolucional, 
                                     verbose=True, 
-                                    mostrar_ima=True)
+                                    mostrar_ima=False)
 
 
     except ValueError as ve:

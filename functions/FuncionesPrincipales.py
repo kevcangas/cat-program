@@ -26,6 +26,9 @@ def rutinaControlada(tiempo_actual,
         expresion = random.choice(IMAGENES)
         Oled.mostrar_imagen(expresion, oled1, oled2)
 
+    else:
+        rutina_seleccionada = rutina_aux 
+
     if rutina_seleccionada != rutina_aux and mov_activado == False:
         Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
         rutina_aux = rutina_seleccionada

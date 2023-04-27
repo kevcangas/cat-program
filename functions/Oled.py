@@ -5,7 +5,7 @@ from PIL import Image
 
 #Función para configurar las pantallas
 def configuracion_pantalla(port,address):
-    serial = i2c(port, address) #port:usualmente 1 o 2 #address: dirección de la pantalla
+    serial = i2c(port=port, address=address) #port:usualmente 1 o 2 #address: dirección de la pantalla
     oled = ssd1306(serial)
     return oled
 

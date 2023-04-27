@@ -27,29 +27,29 @@ def configuracion_servomotores():
 
 def cargar_rutina(id_mov):
     if(id_mov==0):
-        PT = loadmat(r'rutinas\reposo_PT.mat')
-        PD = loadmat(r'rutinas\reposo_PD.mat')
+        PT = loadmat(r'data/rutinas/reposo_PT.mat')
+        PD = loadmat(r'data/rutinas/reposo_PD.mat')
     elif(id_mov==1):
-        PT = loadmat(r'rutinas\pie_PT.mat')
-        PD = loadmat(r'rutinas\pie_PD.mat')
+        PT = loadmat(r'data/rutinas/pie_PT.mat')
+        PD = loadmat(r'data/rutinas/pie_PD.mat')
     elif(id_mov==2):
-        PT = loadmat(r'rutinas\sentado_PT.mat')
-        PD = loadmat(r'rutinas\sentado_PD.mat')
+        PT = loadmat(r'data/rutinas/sentado_PT.mat')
+        PD = loadmat(r'data/rutinas/sentado_PD.mat')
     elif(id_mov==3):
-        PT = loadmat(r'rutinas\jugando_PT.mat')
-        PD1 = loadmat(r'rutinas\jugando_PD1.mat')
-        PD2 = loadmat(r'rutinas\jugando_PD2.mat')
+        PT = loadmat(r'data/rutinas/jugando_PT.mat')
+        PD1 = loadmat(r'data/rutinas/jugando_PD1.mat')
+        PD2 = loadmat(r'data/rutinas/jugando_PD2.mat')
         return PT,PD1,PD2
 
     elif(id_mov==4):
-        PT = loadmat(r'rutinas\estirado_PT.mat')
-        PD = loadmat(r'rutinas\estirado_PD.mat')
+        PT = loadmat(r'data/rutinas/estirado_PT.mat')
+        PD = loadmat(r'data/rutinas/estirado_PD.mat')
     elif(id_mov==5):
-        PT = loadmat(r'rutinas\asustado_PT.mat')
-        PD = loadmat(r'rutinas\asustado_PD.mat')
+        PT = loadmat(r'data/rutinas/asustado_PT.mat')
+        PD = loadmat(r'data/rutinas/asustado_PD.mat')
     elif(id_mov==6):
-        PT = loadmat(r'rutinas\caminando_PT.mat')
-        PD = loadmat(r'rutinas\caminando_PD.mat')
+        PT = loadmat(r'data/rutinas/caminando_PT.mat')
+        PD = loadmat(r'data/rutinas/caminando_PD.mat')
     
     return PT,PD 
 
