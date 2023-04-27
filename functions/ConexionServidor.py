@@ -45,6 +45,7 @@ def comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA, ENCENDIDO_APAGADO):
     }
     try:
         requests.post(URL_SERVIDOR + PAGINA, data)
+        print(data)
         return True
     except:
         return False

@@ -10,7 +10,7 @@ def configuracion_HW139(PIN_HW139):
 #Esta función devuelve un True si se detecta una caricia
 def deteccion_caricia(PIN_HW139):
     touch = GPIO.input(PIN_HW139)
-    return touch
+    return int(touch)
 
 
 #Entry point

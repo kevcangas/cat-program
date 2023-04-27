@@ -47,7 +47,7 @@ def run():
     #CONFIGURACIÓN PANTALLA Y CARGA DE IMAGENES A LA MEMORIA
     IMAGENES = Oled.carga_imagenes()
     OLED_1 = Oled.configuracion_pantalla(1, 0x3C)
-    OLED_2 = Oled.configuracion_pantalla(1, 0x3C)
+    OLED_2 = Oled.configuracion_pantalla(1, 0x3D)
     #Expresiones extablecidas para cada expresión detectada
     EXPRESIONES_NEUTRAL = [2, 4]
     EXPRESIONES_FELICIDAD = [1]
@@ -123,16 +123,18 @@ def run():
         #Lectura de la aplicación movil
         data_recibida = ConexionServidor.recepcion_datos(URL_SERVIDOR, PAGINA_REC)
         
-        if data_recibida:
+        
 
-            rutina_leida = data_recibida['rutina']
-            expresion_leida = data_recibida['expresion']
-            
-            if rutina_leida != 7:
-                rutina = rutina_leida
-            
-            if expresion_leida != 7:
-                expresion = expresion_leida
+        rutina_leida = data_recibida['rutina']
+        expresion_leida = data_recibida['expresion']
+
+        print(rutina_leida)
+        
+        if rutina_leida != 7:
+            rutina = rutina_leida
+        
+        if expresion_leida != 7:
+            expresion = expresion_leida
 
 
         #Lectura de sensores
@@ -156,7 +158,7 @@ def run():
                                         cap,
                                         DETECTOR_ROSTRO, 
                                         RED_CONVOLUCIONAL, 
-                                        verbose=True, 
+                                        verbose=False, 
                                         mostrar_ima=False
                                         ))
             

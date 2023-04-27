@@ -11,7 +11,7 @@ def configuracion_HC(PIN_PIR):
 #Devuelve un true si detecta presencia
 def deteccion_presencia(PIN_PIR):
     presencia = GPIO.input(PIN_PIR)
-    return presencia
+    return int(presencia)
 
 
 #Entry point
