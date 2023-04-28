@@ -6,6 +6,12 @@ import random
 #Propias
 from functions import Servomotores
 from functions import Oled
+from functions import ConexionServidor
+
+
+#Información para el envio de datos
+URL_SERVIDOR = 'http://169.254.2.167:80'
+PAGINA_COMANDOS_REALIZADOS = "/control/gato/1/comandos/realizados/"
 
 
 #Esta función realiza el movimiento de las extremidades
@@ -32,8 +38,7 @@ def rutinaControlada(tiempo_actual,
         rutina_seleccionada = random.choice(rutinas)
         expresion_seleccionada = random.choice(imagenes_automatico)
 
-        print(f"Rutina seleccionada: {rutina_seleccionada}")
-        print(f"Expresión seleccionada: {expresion_seleccionada}")
+        print("Movimiento iniciado")
         
         #Mostrar expresion
         Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
@@ -55,7 +60,7 @@ def rutinaControlada(tiempo_actual,
         rutina_seleccionada = rutina_aux
         expresion_seleccionada = expresion_aux
 
-        print(expresion_seleccionada)
+        print("Movimiento iniciado")
 
         #Mostrar expresion
         Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
@@ -75,13 +80,21 @@ def rutinaControlada(tiempo_actual,
         Servomotores.realizarRutinaP2(CONTROL_SERVOS, rutina_aux)
         mov_activado = False
 
-        print("Movimiento terminado")
-
         #Establece que el comando se realizó con exito
         comandos_realizados = 1
 
         #Establecimiento del tiempo en que se desactivo el movimiento
         tiempo_inicial = time.time()
+
+
+        #Indica si se realizó el comando
+        ConexionServidor.comunicacion_comandos_realizados(
+            URL_SERVIDOR,
+            PAGINA_COMANDOS_REALIZADOS,
+            comandos_realizados
+        )
+
+        print("Movimiento terminado")
 
         return tiempo_inicial, rutina_aux, mov_activado, expresion_aux, comandos_realizados
 

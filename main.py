@@ -31,9 +31,7 @@ def run():
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
     PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion/"
-    PAGINA_COMANDOS_REALIZADOS = "/control/gato/1/comandos/realizados/"
-    ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO, 1)
-
+    ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO)
     print("Conexion internet: Listo")
 
 
@@ -101,8 +99,8 @@ def run():
     CONTROL_SERVOS = Servomotores.configuracion_servomotores()
     rutina = 0
     #Posición inicial
-    # PT, PD =  Servomotores.cargar_rutina(rutina)
-    # Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
+    PT, PD =  Servomotores.cargar_rutina(rutina)
+    Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
     #Rutinas
     RUTINAS_NEUTRAL = [0, 1, 2, 4, 6]
     RUTINAS_FELICIDAD = [1, 3]
@@ -110,10 +108,8 @@ def run():
     RUTINAS_TRISTEZA = [0, 1 ,2] 
     #Variables de control
     mov_activado = False
-    rutina_aux = 0
     tiempo_inicial = time.time()
     rutina_manual = 0
-
     automatico = 1
     comandos_realizados = 1
     print("Configuración servomotores: Listo")
@@ -134,15 +130,14 @@ def run():
 
         #si no está en automatico, lee las rutinas y expresiones de la app
         if not automatico:
-            rutina_manual = data_recibida['rutina']
-            expresion_manual = data_recibida['expresion']
+            rutina_manual = data_recibida['rutina_manual']
+            expresion_manual = data_recibida['expresion_manual']
             comandos_realizados = data_recibida['comandos_realizados']
             # print(rutina)
             print(comandos_realizados)
         
         encendido = data_recibida['encendido']
 
-        
 
         #Lectura de sensores
         temperatura = DHT11.lectura_temperatura(DHT, temp_inicial)
@@ -224,7 +219,7 @@ def run():
                     tiempo_actual = tiempo_actual, 
                     tiempo_inicial = tiempo_inicial, 
                     CONTROL_SERVOS = CONTROL_SERVOS, 
-                    rutinas = RUTINAS_ENOJO,
+                    rutinas = RUTINAS_FELICIDAD,
                     rutina_aux = rutina, 
                     mov_activado = mov_activado,
                     IMAGENES = IMAGENES,
@@ -243,7 +238,7 @@ def run():
                     tiempo_actual = tiempo_actual, 
                     tiempo_inicial = tiempo_inicial, 
                     CONTROL_SERVOS = CONTROL_SERVOS, 
-                    rutinas = RUTINAS_ENOJO,
+                    rutinas = RUTINAS_NEUTRAL,
                     rutina_aux = rutina, 
                     mov_activado = mov_activado,
                     IMAGENES = IMAGENES,
@@ -262,7 +257,7 @@ def run():
                     tiempo_actual = tiempo_actual, 
                     tiempo_inicial = tiempo_inicial, 
                     CONTROL_SERVOS = CONTROL_SERVOS, 
-                    rutinas = RUTINAS_ENOJO,
+                    rutinas = RUTINAS_TRISTEZA,
                     rutina_aux = rutina, 
                     mov_activado = mov_activado,
                     IMAGENES = IMAGENES,
@@ -293,12 +288,6 @@ def run():
                 automatico = False
                 )
             
-            #Indica si se realizó el comando
-            ConexionServidor.comunicacion_comandos_realizados(
-                URL_SERVIDOR,
-                PAGINA_COMANDOS_REALIZADOS,
-                comandos_realizados
-            )
 
 #Entry point
 if __name__ == '__main__':
