@@ -11,8 +11,7 @@ def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = False):
         'medicion5': lecturas[4],
         'medicion6': lecturas[5],
         'medicion7': lecturas[6],
-        'medicion8': lecturas[7],
-        'medicion9': lecturas[8]
+        'medicion8': lecturas[7]
     }
     if verbose: print(data)
     requests.post(URL_SERVIDOR + PAGINA, data)
@@ -40,8 +39,8 @@ def lectura_encendido(URL_SERVIDOR, PAGINA):
 def comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA, ENCENDIDO_APAGADO):
     data = {
         "encendido": ENCENDIDO_APAGADO,
-        "rutina": 7,
-        "expresion": 7
+        "rutina": 0,
+        "expresion": 0
     }
     try:
         requests.post(URL_SERVIDOR + PAGINA, data)

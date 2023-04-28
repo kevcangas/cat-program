@@ -41,8 +41,8 @@ def run():
     DETECTOR_ROSTRO = DER.cargar_Cascade()
     RED_CONVOLUCIONAL = DER.cargar_CNN()
     etiqueta_expresion = 0
-
     print("Iniciación neurona: Listo")
+
 
     #CONFIGURACIÓN PANTALLA Y CARGA DE IMAGENES A LA MEMORIA
     IMAGENES = Oled.carga_imagenes()
@@ -56,21 +56,21 @@ def run():
     #Expresiión inicial
     expresion = 0
     Oled.mostrar_imagen(IMAGENES[expresion], OLED_1, OLED_2)
-
     print("Configuracion pantallas: Listo")
+
 
     #CONFIGURACIÓN SENSOR DHT11
     PIN_DHT = 22
     DHT = DHT11.configuracion_DHT11(PIN_DHT)
     temp_inicial = 0
-
     print("Configuracion DHT11: Listo")
+
 
     #CONFIGURACIÓN SENSOR HCXX
     PIN_PIR = 27
     HCXX.configuracion_HC(PIN_PIR)
-
     print("Configuracion HCXX: Listo")
+
 
     #CONFIGURACIÓN SENSOR HW139
     PIN_HW139_1 = 17
@@ -81,18 +81,18 @@ def run():
     HW139.configuracion_HW139(PIN_HW139_3)
     PIN_HW139_4 = 25
     HW139.configuracion_HW139(PIN_HW139_4)
-
     print("Configuracion HW139: Listo")
 
     
     #CONFIGURACIÓN SENSOR LDR
     PIN_LDR = 4
     LDR.configuracion_LDR(PIN_LDR)
-
     print("Configuracion LDR: Listo")
+
 
     # #CONFIGURACIÓN SENSOR MQ2
     # SENSOR_HUMO = MQ2.configuracion_MQ2()
+    print("Configuración sensor humo: Listo")
 
 
     #CONFIGURACIÓN SERVOMOTORES
@@ -110,12 +110,14 @@ def run():
     mov_activado = False
     rutina_aux = 0
     tiempo_inicial = time.time()
+    automatico = 0
+    print("Configuración servomotores: Listo")
 
 
     #Espera del programa
-    time.sleep(5)
-
+    time.sleep(3)
     print("Corriendo programa principal")
+
 
     #Programa principal de ejecución
     while True:
@@ -123,18 +125,14 @@ def run():
         #Lectura de la aplicación movil
         data_recibida = ConexionServidor.recepcion_datos(URL_SERVIDOR, PAGINA_REC)
         
-        
+        automatico = data_recibida['automatico']
 
-        rutina_leida = data_recibida['rutina']
-        expresion_leida = data_recibida['expresion']
-
-        print(rutina_leida)
+        #si no está en automatico, lee las rutinas y expresiones de la app
+        if not automatico:
+            rutina = data_recibida['rutina']
+            expresion = data_recibida['expresion']
         
-        if rutina_leida != 7:
-            rutina = rutina_leida
-        
-        if expresion_leida != 7:
-            expresion = expresion_leida
+        encendido = data_recibida['encendido']
 
 
         #Lectura de sensores
@@ -147,9 +145,8 @@ def run():
                  HW139.deteccion_caricia(PIN_HW139_2) or
                  HW139.deteccion_caricia(PIN_HW139_3) or
                  HW139.deteccion_caricia(PIN_HW139_4) )
-        conectado = 1
 
-        
+
         #Lectura de las expresiones
         try:
             expresiones_aux = []
@@ -173,23 +170,22 @@ def run():
             URL_SERVIDOR,
             PAGINA_ENV,
             [temperatura, 
-             0, 
+             0, #################################################
              presencia,
-             luz,tacto,
+             luz,
+             tacto,
              etiqueta_expresion,
-             conectado,
              rutina,
              expresion]
         )
 
 
         #Toma de decisión si se apaga
-        if rutina == 10:
-            ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO, 0)
+        if not encendido:
             subprocess.run("sudo shutdown -h now", shell=True)
         
         #Selección de rutina automaticamente
-        elif rutina == 7:
+        if automatico:
         
             #Detección expresión enojo
             if etiqueta_expresion == 0:
@@ -257,7 +253,6 @@ def run():
                 
         #Selección de rutina manual
         else:
-
             tiempo_actual = time.time()
             _ , rutina_aux, mov_activado = FP.rutinaControlada(
                 tiempo_actual, 
@@ -272,7 +267,6 @@ def run():
                 automatico=False
                 )
             
-
 
 #Entry point
 if __name__ == '__main__':
