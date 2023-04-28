@@ -55,11 +55,11 @@ def comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA, ENCENDIDO_APAGADO):
 #Coloca el encendido del gato en la base de datos
 def comunicacion_comandos_realizados(URL_SERVIDOR, PAGINA, realizado):
     data = {
-        "comandos_realizados": realizado
+        "comandos_realizados": int(realizado)
     }
     try:
         requests.post(URL_SERVIDOR + PAGINA, data)
-        print(data)
+        #print(data)
         return True
     except:
         return False

@@ -56,6 +56,7 @@ def run():
     EXPRESIONES_TRISTEZA = [1,5]
     #Expresiión inicial
     expresion = 0
+    expresion_manual = 0
     Oled.mostrar_imagen(IMAGENES[expresion], OLED_1, OLED_2)
     print("Configuracion pantallas: Listo")
 
@@ -111,6 +112,7 @@ def run():
     mov_activado = False
     rutina_aux = 0
     tiempo_inicial = time.time()
+    rutina_manual = 0
 
     automatico = 1
     comandos_realizados = 1
@@ -132,12 +134,15 @@ def run():
 
         #si no está en automatico, lee las rutinas y expresiones de la app
         if not automatico:
-            rutina = data_recibida['rutina']
-            expresion = data_recibida['expresion']
+            rutina_manual = data_recibida['rutina']
+            expresion_manual = data_recibida['expresion']
             comandos_realizados = data_recibida['comandos_realizados']
+            # print(rutina)
+            print(comandos_realizados)
         
         encendido = data_recibida['encendido']
 
+        
 
         #Lectura de sensores
         temperatura = DHT11.lectura_temperatura(DHT, temp_inicial)
@@ -208,6 +213,7 @@ def run():
                     oled1 = OLED_1,
                     oled2 = OLED_2,
                     expresion_aux = expresion,
+                    comandos_realizados = comandos_realizados,
                     automatico = True
                     )
 
@@ -226,6 +232,7 @@ def run():
                     oled1 = OLED_1,
                     oled2 = OLED_2,
                     expresion_aux = expresion,
+                    comandos_realizados = comandos_realizados,
                     automatico = True
                     )
                 
@@ -244,6 +251,7 @@ def run():
                     oled1 = OLED_1,
                     oled2 = OLED_2,
                     expresion_aux = expresion,
+                    comandos_realizados = comandos_realizados,
                     automatico = True
                     )
                 
@@ -258,6 +266,7 @@ def run():
                     rutina_aux = rutina, 
                     mov_activado = mov_activado,
                     IMAGENES = IMAGENES,
+                    comandos_realizados = comandos_realizados,
                     imagenes_automatico = EXPRESIONES_TRISTEZA,
                     oled1 = OLED_1,
                     oled2 = OLED_2,
@@ -273,13 +282,14 @@ def run():
                 tiempo_inicial = tiempo_inicial, 
                 CONTROL_SERVOS = CONTROL_SERVOS, 
                 rutinas = [],
-                rutina_aux = rutina, 
+                rutina_aux = rutina_manual, 
                 mov_activado = mov_activado,
                 IMAGENES = IMAGENES,
                 imagenes_automatico = [],
                 oled1 = OLED_1,
                 oled2 = OLED_2,
-                expresion_aux = expresion,
+                expresion_aux = expresion_manual,
+                comandos_realizados = comandos_realizados,
                 automatico = False
                 )
             

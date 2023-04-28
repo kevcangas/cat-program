@@ -65,30 +65,38 @@ def movPatas(pca,
              PATAD_2=[9,10,11]):
     
     #Pata trasera R 
-    POSICION_SERVOS = [matT['q0v'][0][i], matT['q1v'][0][i], matT['q2v'][0][i]]
-    for j,k in PATAT_1,POSICION_SERVOS:
-        pca.servo[j].angle = k*pi/180
+    POSICION_SERVOS = [matT['q0v'][i], matT['q1v'][i], matT['q2v'][i]]
+    for j in range(3):
+        pass
+        #print(round(POSICION_SERVOS[j]*180/pi)+45)
+        #pca.servo[PATAT_1[j]].angle = round(POSICION_SERVOS[j]*180/pi)
 
     #Pata trasera L
-    POSICION_SERVOS = [matT['q0v'][0][i], matT['q1v'][0][i], matT['q2v'][0][i]]
-    for j,k in PATAT_2,POSICION_SERVOS:
-        pca.servo[j].angle = k*pi/180
+    POSICION_SERVOS = [matT['q0v'][i], matT['q1v'][i], matT['q2v'][i]]
+    for j in range(3):
+        pass
+        #print(round(POSICION_SERVOS[j]*180/pi)+45)
+        #pca.servo[PATAT_2[j]].angle = round(POSICION_SERVOS[j]*180/pi)
     
     #Pata delantera R
-    POSICION_SERVOS = [matD['q0v'][0][i], matD['q1v'][0][i], matD['q2v'][0][i]]
-    for j,k in PATAD_1,POSICION_SERVOS:
-        pca.servo[j].angle = k*pi/180
+    POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
+    for j in range(3):
+        pass
+        #print(round(POSICION_SERVOS[j]*180/pi)+45)
+        #pca.servo[PATAD_1[j]].angle = round(POSICION_SERVOS[j]*180/pi)
     
     #Pata delantera L
-    POSICION_SERVOS = [matD['q0v'][0][i], matD['q1v'][0][i], matD['q2v'][0][i]]
-    for j,k in PATAD_2,POSICION_SERVOS:
-        pca.servo[j].angle = k*pi/180
+    POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
+    for j in range(3):
+        pass
+        #print(round(POSICION_SERVOS[j]*180/pi)+45)
+        #pca.servo[PATAD_2[j]].angle = round(POSICION_SERVOS[j]*180/pi)
 
 
 #Realiza el movimiento de la primera mitad de la rutina
 def realizarRutinaP1(pca, rutina_seleccionada):
     PT,PD = cargar_rutina(rutina_seleccionada)
-    pasos_movimientos = len(PT['q0v'][0][:])
+    pasos_movimientos = len(PT['q0v'])
     control_pasos = pasos_movimientos//2-1
 
     for i in range(control_pasos):
@@ -98,7 +106,7 @@ def realizarRutinaP1(pca, rutina_seleccionada):
 #Esta función realiza el movimiento de la segunda mitad de la rutina
 def realizarRutinaP2(pca, rutina_seleccionada):
     PT,PD = cargar_rutina(rutina_seleccionada)
-    pasos_movimientos = len(PT['q0v'][0][:])
+    pasos_movimientos = len(PT['q0v'])
     control_pasos = pasos_movimientos//2-1
 
     for i in range(control_pasos, pasos_movimientos):

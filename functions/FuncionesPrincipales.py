@@ -26,11 +26,14 @@ def rutinaControlada(tiempo_actual,
 
 
     #Activación automatica del movimiento y expresion
-    if tiempo_actual - tiempo_inicial > 120 and automatico and mov_activado == False:
+    if tiempo_actual - tiempo_inicial > 10 and automatico and mov_activado == False:
         
         #Selección automatica de rutinas y expresiones
         rutina_seleccionada = random.choice(rutinas)
         expresion_seleccionada = random.choice(imagenes_automatico)
+
+        print(f"Rutina seleccionada: {rutina_seleccionada}")
+        print(f"Expresión seleccionada: {expresion_seleccionada}")
         
         #Mostrar expresion
         Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
@@ -52,6 +55,8 @@ def rutinaControlada(tiempo_actual,
         rutina_seleccionada = rutina_aux
         expresion_seleccionada = expresion_aux
 
+        print(expresion_seleccionada)
+
         #Mostrar expresion
         Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
 
@@ -66,9 +71,11 @@ def rutinaControlada(tiempo_actual,
     
 
     #Desactivación del movimiento
-    if tiempo_actual - tiempo_inicial > 30 and mov_activado == True:
-        Servomotores.realizarRutinaP2(CONTROL_SERVOS, rutina_seleccionada)
+    if tiempo_actual - tiempo_inicial > 10 and mov_activado == True:
+        Servomotores.realizarRutinaP2(CONTROL_SERVOS, rutina_aux)
         mov_activado = False
+
+        print("Movimiento terminado")
 
         #Establece que el comando se realizó con exito
         comandos_realizados = 1
@@ -76,7 +83,7 @@ def rutinaControlada(tiempo_actual,
         #Establecimiento del tiempo en que se desactivo el movimiento
         tiempo_inicial = time.time()
 
-        return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados
+        return tiempo_inicial, rutina_aux, mov_activado, expresion_aux, comandos_realizados
 
     
     return tiempo_inicial, rutina_aux, mov_activado, expresion_aux, comandos_realizados
