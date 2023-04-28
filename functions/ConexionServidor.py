@@ -40,7 +40,22 @@ def comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA, ENCENDIDO_APAGADO):
     data = {
         "encendido": ENCENDIDO_APAGADO,
         "rutina": 0,
-        "expresion": 0
+        "expresion": 0,
+        "automatico": 1,
+        "comandos_realizados": 1
+    }
+    try:
+        requests.post(URL_SERVIDOR + PAGINA, data)
+        print(data)
+        return True
+    except:
+        return False
+
+
+#Coloca el encendido del gato en la base de datos
+def comunicacion_comandos_realizados(URL_SERVIDOR, PAGINA, realizado):
+    data = {
+        "comandos_realizados": realizado
     }
     try:
         requests.post(URL_SERVIDOR + PAGINA, data)

@@ -20,34 +20,69 @@ def rutinaControlada(tiempo_actual,
                      oled1,
                      oled2,
                      expresion_aux,
+                     comandos_realizados,
                      automatico = True
                      ):
 
-    if tiempo_actual - tiempo_inicial > 120 and automatico:
+    rutina_seleccionada = rutina_aux
+    expresion_seleccionada = expresion_aux
+
+
+    #Activación automatica del movimiento y expresion
+    if tiempo_actual - tiempo_inicial > 120 and automatico and mov_activado == False:
+        
+        #Selección automatica de rutinas y expresiones
         rutina_seleccionada = random.choice(rutinas)
         expresion_seleccionada = random.choice(imagenes_automatico)
+        
+        #Mostrar expresion
         Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
 
-
-    elif not automatico:
-        rutina_seleccionada = rutina_aux
-        expresion_seleccionada = expresion_aux
-        Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
-
-
-    if tiempo_actual - tiempo_inicial > 120 and mov_activado == False:
+        #Movimiento servomotores
         Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
         mov_activado = True
-        return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada
+        
+        #Estblecimiento del tiempo en que se activa el movimiento
+        tiempo_inicial = time.time()
+
+        return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados
 
 
+    #Activación manual del movimiento y expresion
+    if not automatico and mov_activado == False and comandos_realizados == False:
+
+        #Establecimiento manual de la rutina y expresión
+        rutina_seleccionada = rutina_aux
+        expresion_seleccionada = expresion_aux
+
+        #Mostrar expresion
+        Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
+
+        #Movimiento servomotores
+        Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
+        mov_activado = True
+
+        #Estblecimiento del tiempo en que se activa el movimiento
+        tiempo_inicial = time.time()
+
+        return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados
+    
+
+    #Desactivación del movimiento
     if tiempo_actual - tiempo_inicial > 30 and mov_activado == True:
         Servomotores.realizarRutinaP2(CONTROL_SERVOS, rutina_seleccionada)
         mov_activado = False
+
+        #Establece que el comando se realizó con exito
+        comandos_realizados = 1
+
+        #Establecimiento del tiempo en que se desactivo el movimiento
         tiempo_inicial = time.time()
-        return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada
+
+        return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados
+
     
-    return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada
+    return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados
     
 
 #Entry point

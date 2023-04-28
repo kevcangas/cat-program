@@ -30,7 +30,8 @@ def run():
     URL_SERVIDOR = 'http://169.254.2.167:80'
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
-    PAGINA_ENCENDIDO = "/control/gato/1/encendido/"
+    PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion"
+    PAGINA_COMANDOS_REALIZADOS = "/control/gato/1/comandos/realizados/"
     ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO, 1)
 
     print("Conexion internet: Listo")
@@ -110,7 +111,9 @@ def run():
     mov_activado = False
     rutina_aux = 0
     tiempo_inicial = time.time()
-    automatico = 0
+
+    automatico = 1
+    comandos_realizados = 1
     print("Configuración servomotores: Listo")
 
 
@@ -131,6 +134,7 @@ def run():
         if not automatico:
             rutina = data_recibida['rutina']
             expresion = data_recibida['expresion']
+            comandos_realizados = data_recibida['comandos_realizados']
         
         encendido = data_recibida['encendido']
 
@@ -185,80 +189,90 @@ def run():
             subprocess.run("sudo shutdown -h now", shell=True)
         
         #Selección de rutina automaticamente
+        tiempo_actual = time.time()
+
         if automatico:
         
             #Detección expresión enojo
             if etiqueta_expresion == 0:
 
-                tiempo_actual = time.time()
-                tiempo_inicial, rutina, mov_activado = FP.rutinaControlada(
-                    tiempo_actual, 
-                    tiempo_inicial, 
-                    CONTROL_SERVOS, 
-                    RUTINAS_ENOJO,
-                    rutina, 
-                    mov_activado,
-                    EXPRESIONES_ENOJO,
-                    OLED_1,
-                    OLED_2
+                tiempo_inicial , rutina, mov_activado, expresion, comandos_realizados = FP.rutinaControlada(
+                    tiempo_actual = tiempo_actual, 
+                    tiempo_inicial = tiempo_inicial, 
+                    CONTROL_SERVOS = CONTROL_SERVOS, 
+                    rutinas = RUTINAS_ENOJO,
+                    rutina_aux = rutina, 
+                    mov_activado = mov_activado,
+                    IMAGENES = IMAGENES,
+                    imagenes_automatico = EXPRESIONES_ENOJO,
+                    oled1 = OLED_1,
+                    oled2 = OLED_2,
+                    expresion_aux = expresion,
+                    automatico = True
                     )
 
             #Detección expresión felicidad
             elif etiqueta_expresion == 1:
-
-                tiempo_actual = time.time()
-                tiempo_inicial, rutina, mov_activado = FP.rutinaControlada(
-                    tiempo_actual, 
-                    tiempo_inicial, 
-                    CONTROL_SERVOS, 
-                    RUTINAS_FELICIDAD,
-                    rutina, 
-                    mov_activado,
-                    EXPRESIONES_FELICIDAD,
-                    OLED_1,
-                    OLED_2
+                
+                tiempo_inicial , rutina, mov_activado, expresion, comandos_realizados = FP.rutinaControlada(
+                    tiempo_actual = tiempo_actual, 
+                    tiempo_inicial = tiempo_inicial, 
+                    CONTROL_SERVOS = CONTROL_SERVOS, 
+                    rutinas = RUTINAS_ENOJO,
+                    rutina_aux = rutina, 
+                    mov_activado = mov_activado,
+                    IMAGENES = IMAGENES,
+                    imagenes_automatico = EXPRESIONES_FELICIDAD,
+                    oled1 = OLED_1,
+                    oled2 = OLED_2,
+                    expresion_aux = expresion,
+                    automatico = True
                     )
                 
             #Detección expresión neutra
             elif etiqueta_expresion == 2:
-
-                tiempo_actual = time.time()
-                tiempo_inicial, rutina, mov_activado = FP.rutinaControlada(
-                    tiempo_actual, 
-                    tiempo_inicial, 
-                    CONTROL_SERVOS, 
-                    RUTINAS_NEUTRAL,
-                    rutina, 
-                    mov_activado,
-                    EXPRESIONES_NEUTRAL,
-                    OLED_1,
-                    OLED_2
+                
+                tiempo_inicial , rutina, mov_activado, expresion, comandos_realizados = FP.rutinaControlada(
+                    tiempo_actual = tiempo_actual, 
+                    tiempo_inicial = tiempo_inicial, 
+                    CONTROL_SERVOS = CONTROL_SERVOS, 
+                    rutinas = RUTINAS_ENOJO,
+                    rutina_aux = rutina, 
+                    mov_activado = mov_activado,
+                    IMAGENES = IMAGENES,
+                    imagenes_automatico = EXPRESIONES_NEUTRAL,
+                    oled1 = OLED_1,
+                    oled2 = OLED_2,
+                    expresion_aux = expresion,
+                    automatico = True
                     )
                 
             #Detección expresión tristeza
             elif etiqueta_expresion == 3:
-
-                tiempo_actual = time.time()
-                tiempo_inicial, rutina, mov_activado, expresion = FP.rutinaControlada(
-                    tiempo_actual, 
-                    tiempo_inicial, 
-                    CONTROL_SERVOS, 
-                    RUTINAS_TRISTEZA,
-                    rutina, 
-                    mov_activado,
-                    EXPRESIONES_TRISTEZA,
-                    OLED_1,
-                    OLED_2
+                
+                tiempo_inicial , rutina, mov_activado, expresion, comandos_realizados = FP.rutinaControlada(
+                    tiempo_actual = tiempo_actual, 
+                    tiempo_inicial = tiempo_inicial, 
+                    CONTROL_SERVOS = CONTROL_SERVOS, 
+                    rutinas = RUTINAS_ENOJO,
+                    rutina_aux = rutina, 
+                    mov_activado = mov_activado,
+                    IMAGENES = IMAGENES,
+                    imagenes_automatico = EXPRESIONES_TRISTEZA,
+                    oled1 = OLED_1,
+                    oled2 = OLED_2,
+                    expresion_aux = expresion,
+                    automatico = True
                     )
                 
         #Selección de rutina manual
         else:
-            tiempo_actual = time.time()
-            _ , rutina, mov_activado, expresion = FP.rutinaControlada(
+            
+            tiempo_inicial , rutina, mov_activado, expresion, comandos_realizados = FP.rutinaControlada(
                 tiempo_actual = tiempo_actual, 
                 tiempo_inicial = tiempo_inicial, 
                 CONTROL_SERVOS = CONTROL_SERVOS, 
-                rutinas = [rutina],
+                rutinas = [],
                 rutina_aux = rutina, 
                 mov_activado = mov_activado,
                 IMAGENES = IMAGENES,
@@ -269,6 +283,12 @@ def run():
                 automatico = False
                 )
             
+            #Indica si se realizó el comando
+            ConexionServidor.comunicacion_comandos_realizados(
+                URL_SERVIDOR,
+                PAGINA_COMANDOS_REALIZADOS,
+                comandos_realizados
+            )
 
 #Entry point
 if __name__ == '__main__':
