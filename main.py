@@ -191,12 +191,12 @@ def run():
             if etiqueta_expresion == 0:
 
                 tiempo_actual = time.time()
-                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                tiempo_inicial, rutina, mov_activado = FP.rutinaControlada(
                     tiempo_actual, 
                     tiempo_inicial, 
                     CONTROL_SERVOS, 
                     RUTINAS_ENOJO,
-                    rutina_aux, 
+                    rutina, 
                     mov_activado,
                     EXPRESIONES_ENOJO,
                     OLED_1,
@@ -207,12 +207,12 @@ def run():
             elif etiqueta_expresion == 1:
 
                 tiempo_actual = time.time()
-                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                tiempo_inicial, rutina, mov_activado = FP.rutinaControlada(
                     tiempo_actual, 
                     tiempo_inicial, 
                     CONTROL_SERVOS, 
                     RUTINAS_FELICIDAD,
-                    rutina_aux, 
+                    rutina, 
                     mov_activado,
                     EXPRESIONES_FELICIDAD,
                     OLED_1,
@@ -223,12 +223,12 @@ def run():
             elif etiqueta_expresion == 2:
 
                 tiempo_actual = time.time()
-                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                tiempo_inicial, rutina, mov_activado = FP.rutinaControlada(
                     tiempo_actual, 
                     tiempo_inicial, 
                     CONTROL_SERVOS, 
                     RUTINAS_NEUTRAL,
-                    rutina_aux, 
+                    rutina, 
                     mov_activado,
                     EXPRESIONES_NEUTRAL,
                     OLED_1,
@@ -239,12 +239,12 @@ def run():
             elif etiqueta_expresion == 3:
 
                 tiempo_actual = time.time()
-                tiempo_inicial, rutina_aux, mov_activado = FP.rutinaControlada(
+                tiempo_inicial, rutina, mov_activado, expresion = FP.rutinaControlada(
                     tiempo_actual, 
                     tiempo_inicial, 
                     CONTROL_SERVOS, 
                     RUTINAS_TRISTEZA,
-                    rutina_aux, 
+                    rutina, 
                     mov_activado,
                     EXPRESIONES_TRISTEZA,
                     OLED_1,
@@ -254,17 +254,19 @@ def run():
         #Selección de rutina manual
         else:
             tiempo_actual = time.time()
-            _ , rutina_aux, mov_activado = FP.rutinaControlada(
-                tiempo_actual, 
-                tiempo_inicial, 
-                CONTROL_SERVOS, 
-                [rutina],
-                rutina_aux, 
-                mov_activado,
-                [expresion],
-                OLED_1,
-                OLED_2,
-                automatico=False
+            _ , rutina, mov_activado, expresion = FP.rutinaControlada(
+                tiempo_actual = tiempo_actual, 
+                tiempo_inicial = tiempo_inicial, 
+                CONTROL_SERVOS = CONTROL_SERVOS, 
+                rutinas = [rutina],
+                rutina_aux = rutina, 
+                mov_activado = mov_activado,
+                IMAGENES = IMAGENES,
+                imagenes_automatico = [],
+                oled1 = OLED_1,
+                oled2 = OLED_2,
+                expresion_aux = expresion,
+                automatico = False
                 )
             
 
