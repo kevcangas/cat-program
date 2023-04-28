@@ -24,9 +24,6 @@ def rutinaControlada(tiempo_actual,
                      automatico = True
                      ):
 
-    rutina_seleccionada = rutina_aux
-    expresion_seleccionada = expresion_aux
-
 
     #Activación automatica del movimiento y expresion
     if tiempo_actual - tiempo_inicial > 120 and automatico and mov_activado == False:
@@ -82,7 +79,7 @@ def rutinaControlada(tiempo_actual,
         return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados
 
     
-    return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados
+    return tiempo_inicial, rutina_aux, mov_activado, expresion_aux, comandos_realizados
     
 
 #Entry point

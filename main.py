@@ -30,7 +30,7 @@ def run():
     URL_SERVIDOR = 'http://169.254.2.167:80'
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
-    PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion"
+    PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion/"
     PAGINA_COMANDOS_REALIZADOS = "/control/gato/1/comandos/realizados/"
     ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO, 1)
 
