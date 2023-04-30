@@ -269,6 +269,24 @@ def run():
                     automatico = True
                     )
                 
+            else:
+
+                tiempo_inicial , rutina, mov_activado, expresion, comandos_realizados = FP.rutinaControlada(
+                    tiempo_actual = tiempo_actual, 
+                    tiempo_inicial = tiempo_inicial, 
+                    CONTROL_SERVOS = CONTROL_SERVOS, 
+                    rutinas = [0],
+                    rutina_aux = rutina, 
+                    mov_activado = mov_activado,
+                    IMAGENES = IMAGENES,
+                    comandos_realizados = comandos_realizados,
+                    imagenes_automatico = [0],
+                    oled1 = OLED_1,
+                    oled2 = OLED_2,
+                    expresion_aux = expresion,
+                    automatico = True
+                    )
+                
         #Selección de rutina manual
         else:
             
