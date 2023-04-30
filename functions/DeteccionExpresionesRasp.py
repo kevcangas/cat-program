@@ -49,24 +49,32 @@ def deteccion_expresiones(cap, detector_rostros, red_convolucional, verbose:bool
     x_test = np.expand_dims(x_test,axis=-1)
     red_convolucional.set_tensor(0, x_test.astype(float32))
     red_convolucional.invoke()
-    prediccion = np.argmax(red_convolucional.get_tensor(32)[0])
+    
+    predicciones = red_convolucional.get_tensor(32)[0]
 
     #Clasificación
-    #etiqueta = ''
+    
+    etiqueta = ''
 
-    if prediccion == 0:  
-        etiqueta='Enojo'
+    if np.sort(predicciones)[-1] < 0.4:
+        etiqueta='No rostro' 
+        prediccion = 0
+    else:
+        prediccion = np.argmax(predicciones)
 
-    if prediccion == 1:  
-        etiqueta='Alegria'
+        if prediccion == 0:  
+            etiqueta='Enojo'
 
-    if prediccion == 2: 
-        etiqueta='Neutro'
+        if prediccion == 1:  
+            etiqueta='Alegria'
 
-    if prediccion == 3: 
-        etiqueta='Tristeza'
+        if prediccion == 2: 
+            etiqueta='Neutro'
 
-    if verbose: print(etiqueta)
+        if prediccion == 3: 
+            etiqueta='Tristeza'
+
+    if verbose: print(f"Etiqueta: {etiqueta} Porcentaje: {np.sort(predicciones)[-1]}")
     
     if mostrar_ima: cv2.imshow('imagen',frame_a_mostrar)
     

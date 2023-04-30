@@ -20,7 +20,7 @@ try:
                                  detector_rostros, 
                                  red_convolucional, 
                                  verbose=True, 
-                                 mostrar_ima=False)
+                                 mostrar_ima=True)
 
 
 except ValueError as ve:
