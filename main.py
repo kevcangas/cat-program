@@ -31,7 +31,7 @@ def run():
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
     PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion/"
-    ConexionServidor.comunicacion_encendido_apagado(URL_SERVIDOR, PAGINA_ENCENDIDO)
+    ConexionServidor.comunicacion_encendido(URL_SERVIDOR, PAGINA_ENCENDIDO)
     print("Conexion internet: Listo")
 
 
@@ -45,8 +45,8 @@ def run():
 
     #CONFIGURACIÓN PANTALLA Y CARGA DE IMAGENES A LA MEMORIA
     IMAGENES = Oled.carga_imagenes()
-    OLED_1 = Oled.configuracion_pantalla(1, 0x3C)
-    OLED_2 = Oled.configuracion_pantalla(1, 0x3D)
+    OLED_1 = Oled.configuracion_pantalla(1, 0x3D)
+    OLED_2 = Oled.configuracion_pantalla(1, 0x3C)
     #Expresiones extablecidas para cada expresión detectada
     EXPRESIONES_NEUTRAL = [2, 4]
     EXPRESIONES_FELICIDAD = [1]
@@ -133,8 +133,6 @@ def run():
             rutina_manual = data_recibida['rutina_manual']
             expresion_manual = data_recibida['expresion_manual']
             comandos_realizados = data_recibida['comandos_realizados']
-            # print(rutina)
-            print(comandos_realizados)
         
         encendido = data_recibida['encendido']
 
@@ -159,7 +157,7 @@ def run():
                                         cap,
                                         DETECTOR_ROSTRO, 
                                         RED_CONVOLUCIONAL, 
-                                        verbose=False, 
+                                        verbose=True, 
                                         mostrar_ima=False
                                         ))
             
@@ -305,6 +303,7 @@ def run():
                 comandos_realizados = comandos_realizados,
                 automatico = False
                 )
+            
             
 
 #Entry point

@@ -56,9 +56,9 @@ def deteccion_expresiones(cap, detector_rostros, red_convolucional, verbose:bool
     
     etiqueta = ''
 
-    if np.sort(predicciones)[-1] < 0.4:
+    if np.sort(predicciones)[-1] < 0.6:
         etiqueta='No rostro' 
-        prediccion = 0
+        prediccion = 4
     else:
         prediccion = np.argmax(predicciones)
 
