@@ -4,17 +4,17 @@ import requests
 #Envia la información contendia en lecturas a la página
 def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = False):
     data = {
-        'medicion1': lecturas[0],
-        'medicion2': lecturas[1],
-        'medicion3': lecturas[2],
-        'medicion4': lecturas[3],
-        'medicion5': lecturas[4],
-        'medicion6': lecturas[5],
-        'medicion7': lecturas[6],
-        'medicion8': lecturas[7]
+        'temperatura': lecturas[0],
+        'gas_humo': lecturas[1],
+        'presencia': lecturas[2],
+        'luz': lecturas[3],
+        'tacto': lecturas[4],
+        'emocion': lecturas[5],
+        'rutina': lecturas[6],
+        'expresion': lecturas[7]
     }
     if verbose: print(data)
-    requests.post(URL_SERVIDOR + PAGINA, data)
+    requests.post(url= URL_SERVIDOR + PAGINA, json = data)
 
 
 #Regresa un diccionario con la información recibida de la página
@@ -45,7 +45,7 @@ def comunicacion_encendido(URL_SERVIDOR, PAGINA):
         "comandos_realizados": 1
     }
     try:
-        requests.post(URL_SERVIDOR + PAGINA, data)
+        requests.post(url = URL_SERVIDOR + PAGINA, json = data)
         #print(data)
         return True
     except:
@@ -58,7 +58,7 @@ def comunicacion_comandos_realizados(URL_SERVIDOR, PAGINA, realizado):
         "comandos_realizados": int(realizado)
     }
     try:
-        requests.post(URL_SERVIDOR + PAGINA, data)
+        requests.post(url = URL_SERVIDOR + PAGINA, json = data)
         #print(data)
         return True
     except:
