@@ -7,7 +7,8 @@ def calculo_juntas_PT(L1,
                       L3,
                       Z0,
                       xC, 
-                      yC, 
+                      yC,
+                      z, 
                       POSICION_SERVO_HOMBRO, 
                       Q0_INICIAL, 
                       Q0_MIN, 
@@ -22,7 +23,7 @@ def calculo_juntas_PT(L1,
     #Puntos a evaluar 
     x=xC
     y=yC
-    z=0
+    z=z
 
     #Punto en el marco original
     p0 = [x,y,z] 
