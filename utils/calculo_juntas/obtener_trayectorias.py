@@ -1,6 +1,10 @@
-from utils.calculo_juntas.bezier import Bezier
+#Python
 import numpy as np
 import matplotlib.pyplot as plt
+
+
+#Librerías propias
+from utils.calculo_juntas.bezier import Bezier
 
 
 def obtener_trayectoria():
@@ -20,8 +24,26 @@ def obtener_trayectoria():
 
     plt.plot(
         curve1[:, 0],   # x-coordinates.
-        curve1[:, 1]    # y-coordinates.
+        curve1[:, 1],    # y-coordinates.
+        label = 'Trayectoria'
     )
+
+    plt.plot(
+        coordenadas[0][0],
+        coordenadas[0][1],
+        'ro',
+        label = 'Inicio'
+    )
+
+    plt.plot(
+        coordenadas[-1][0],
+        coordenadas[-1][1],
+        'go',
+        label = 'Final'
+    )
+
+    plt.title("Trayectoria")
+    plt.legend(loc = "upper left")
 
     plt.xlim([-180,180])
     plt.ylim([-200,0])
