@@ -23,6 +23,20 @@ def obtener_trayectoria():
     curve1 = Bezier.Curve(t_points, coordenadas)
 
     plt.plot(
+        coordenadas[:, 0],
+        coordenadas[:, 1],
+        'y--',
+        label='Puntos de generación'
+    )
+
+    plt.plot(
+        coordenadas[:, 0],
+        coordenadas[:, 1],
+        'yo',
+        label='Puntos de generación'
+    )
+
+    plt.plot(
         curve1[:, 0],   # x-coordinates.
         curve1[:, 1],    # y-coordinates.
         label = 'Trayectoria'
@@ -40,13 +54,6 @@ def obtener_trayectoria():
         coordenadas[-1][1],
         'go',
         label = 'Final'
-    )
-
-    plt.plot(
-        coordenadas[:, 0],
-        coordenadas[:, 1],
-        'y-',
-        label='Puntos de generación'
     )
 
     plt.title("Trayectoria")

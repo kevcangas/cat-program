@@ -26,29 +26,50 @@ def configuracion_servomotores():
 #Función para la carga de rutinas
 def cargar_rutina(id_mov):
     if(id_mov==0):
-        PT = json.loads(r'data/rutinas_py/reposo_PT.json')
-        PD = json.loads(r'data/rutinas_py/reposo_PD.json')
+        with open(r'data/rutinas_py/reposo_PT.json') as f:
+            PT = json.load(f)
+        with open(r'data/rutinas_py/reposo_PD.json') as f:
+            PD = json.load(f)
+
     elif(id_mov==1):
-        PT = json.loads(r'data/rutinas_py/pie_PT.json')
-        PD = json.loads(r'data/rutinas_py/pie_PD.json')
+        with open(r'data/rutinas_py/pie_PT.json') as f:
+            PT = json.load(f)
+        with open(r'data/rutinas_py/pie_PD.json') as f:
+            PD = json.load(f)
+
     elif(id_mov==2):
-        PT = json.loads(r'data/rutinas_py/sentado_PT.json')
-        PD = json.loads(r'data/rutinas_py/sentado_PD.json')
+        with open(r'data/rutinas_py/sentado_PT.json') as f:
+            PT = json.load(f)
+        with open(r'data/rutinas_py/sentado_PD.json') as f:
+            PD = json.load(f)
+
     elif(id_mov==3):
-        PT = json.loads(r'data/rutinas_py/jugando_PT.json')
-        PD1 = json.loads(r'data/rutinas_py/jugando_PD1.json')
-        PD2 = json.loads(r'data/rutinas_py/jugando_PD2.json')
+        with open(r'data/rutinas_py/jugando_PT.json') as f:
+            PT = json.load(f)
+        with open(r'data/rutinas_py/jugando_PD1.json') as f:
+            PD1 = json.load(f)
+        with open(r'data/rutinas_py/jugando_PD.json') as f:
+            PD2 = json.load(f)
+
         return PT,PD1,PD2
 
     elif(id_mov==4):
-        PT = json.loads(r'data/rutinas_py/estirado_PT.json')
-        PD = json.loads(r'data/rutinas_py/estirado_PD.json')
+        with open(r'data/rutinas_py/estirado_PT.json') as f:
+            PT = json.load(f)
+        with open(r'data/rutinas_py/estirado_PD.json') as f:
+            PD = json.load(f)
+
     elif(id_mov==5):
-        PT = json.loads(r'data/rutinas_py/asustado_PT.json')
-        PD = json.loads(r'data/rutinas_py/asustado_PD.json')
+        with open(r'data/rutinas_py/asustado_PT.json') as f:
+            PT = json.load(f)
+        with open(r'data/rutinas_py/asustado_PD.json') as f:
+            PD = json.load(f)
+    
     elif(id_mov==6):
-        PT = json.loads(r'data/rutinas_py/caminando_PT.json')
-        PD = json.loads(r'data/rutinas_py/caminando_PD.json')
+        with open(r'data/rutinas_py/caminando_PT.json') as f:
+            PT = json.load(f)
+        with open(r'data/rutinas_py/caminando_PD.json') as f:
+            PD = json.load(f)
     
     return PT,PD 
 

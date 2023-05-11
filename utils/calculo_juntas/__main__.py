@@ -8,7 +8,7 @@ from utils.calculo_juntas.obtener_trayectorias import obtener_trayectoria
 from utils.calculo_juntas.calculo_juntas import calculo_juntas_PT, calculo_juntas_PD
 
 
-def calculo_PT(xC, yC, rutina):
+def calculo_PT(rutina):
 
     #Creación de las listas con las trayectorias
     q0v=[]
@@ -16,10 +16,10 @@ def calculo_PT(xC, yC, rutina):
     q2v=[]
 
     #Configuración fisica de las patas traseras
-    Z0PT = 33.84;
-    L1PT = 100;
-    L2PT = 70;
-    L3PT = 60;
+    Z0PT = 33.84
+    L1PT = 100
+    L2PT = 70
+    L3PT = 60
 
     POSICION_SERVO_HOMBRO = 0
 
@@ -30,17 +30,21 @@ def calculo_PT(xC, yC, rutina):
 
     #Posiciones MAX y MIN
     Q0_MIN_PT = 0
-    Q0_MAX_PT = pi
+    Q0_MAX_PT = 2*pi
 
     Q1_MIN_PT = 0
-    Q1_MAX_PT = pi
+    Q1_MAX_PT = 2*pi
     
     Q2_MIN_PT = 0
-    Q2_MAX_PT = pi
+    Q2_MAX_PT = 2*pi
 
     #Asignación de los puntos
-    xC = xC
-    yC = yC
+    while 1:
+        print("\033[;36m"+"Analsis PT")
+        xC, yC = obtener_trayectoria()
+        seleccion = bool(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: "))
+        if seleccion:
+            break
 
     tamano = xC.size
 
@@ -101,7 +105,7 @@ def calculo_PT(xC, yC, rutina):
     print("Calculo juntas traseras: Listo!")      
 
 
-def calculo_PD(xC, yC, rutina):
+def calculo_PD(rutina):
     
     #Creación de las listas con las trayectorias
     q0v=[]
@@ -109,31 +113,35 @@ def calculo_PD(xC, yC, rutina):
     q2v=[]
 
     #Configuración de las patas delanteras del robot
-    Z0PD = 33.49;
-    Z1PD = 0;
-    L1PD = 100;
-    L2PD = 90;
+    Z0PD = 33.49
+    Z1PD = 0
+    L1PD = 100
+    L2PD = 90
 
     POSICION_SERVO_HOMBRO = 0
 
     #Posición inicial de las variables de junta (Radianes)    
     Q0_INICIAL_PD = 0
-    Q1_INICIAL_PD = pi/2
+    Q1_INICIAL_PD = pi
     Q2_INICIAL_PD = 0
 
     #Posiciones MAX y MIN
     Q0_MIN_PD = 0
-    Q0_MAX_PD = pi
+    Q0_MAX_PD = 2*pi
 
     Q1_MIN_PD = 0
-    Q1_MAX_PD = pi
+    Q1_MAX_PD = 2*pi
     
     Q2_MIN_PD = 0
-    Q2_MAX_PD = pi
+    Q2_MAX_PD = 2*pi
 
     #Asignación de los puntos
-    xC = xC
-    yC = yC
+    while 1:
+        print("\033[;36m"+"Analsis PD")
+        xC, yC = obtener_trayectoria()
+        seleccion = bool(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: "))
+        if seleccion:
+            break
 
     tamano = xC.size
 
@@ -195,14 +203,8 @@ def calculo_PD(xC, yC, rutina):
 #Programa principal
 def run():
     rutina = input("Introduce la rutina que es: ")
-    while 1:
-        xC, yC = obtener_trayectoria()
-        seleccion = bool(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: "))
-        if seleccion:
-            break
-
-    calculo_PT(xC, yC, rutina)
-    calculo_PD(xC, yC, rutina)
+    calculo_PT(rutina)
+    calculo_PD(rutina)
 
 
 #Entry point

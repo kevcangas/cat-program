@@ -92,7 +92,7 @@ def calculo_juntas_PT(L1,
         print("PT Se alcanzó el tope min en q2")
 
     #Agregado de las variables al vector a guardar
-    return round(q0*180/pi), round(q1*180/pi), round(q2*180/pi)
+    return round(360-q0*180/pi), round(360-q1*180/pi), round(q2*180/pi)
 
 
 #Calculo juntas de las patas traseras
@@ -184,4 +184,4 @@ def calculo_juntas_PD(L1,
         print("PD Se alcanzó el tope min en q2")
 
     #Agregado de las variables al vector a guardar
-    return round(q0*180/pi), round(q1*180/pi), round(q2*180/pi)
+    return round(360-q0*180/pi), round(360-q1*180/pi), round(q2*180/pi)
