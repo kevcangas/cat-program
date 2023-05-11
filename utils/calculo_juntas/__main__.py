@@ -36,14 +36,14 @@ def calculo_PT(rutina):
     Q1_MAX_PT = 2*pi
     
     Q2_MIN_PT = 0
-    Q2_MAX_PT = 2*pi
+    Q2_MAX_PT = 3*pi
 
     #Asignación de los puntos
     while 1:
         print("\033[;36m"+"Analsis PT"+'\033[0;m')
         xC, yC = obtener_trayectoria()
-        seleccion = bool(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: "))
-        if seleccion:
+        seleccion = bool(int(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: ")))
+        if seleccion == True:
             break
 
     tamano = xC.size
@@ -87,9 +87,9 @@ def calculo_PT(rutina):
             return 0
     
     #Duplicado de la trayectoria en espejo
-    q0v.extend(q0v[:-1])
-    q1v.extend(q1v[:-1])
-    q2v.extend(q2v[:-1])
+    q0v.extend(q0v[::-1])
+    q1v.extend(q1v[::-1])
+    q2v.extend(q2v[::-1])
 
     #Creación de JSON para su facil acceso
     juntas = {
@@ -126,20 +126,20 @@ def calculo_PD(rutina):
     Q2_INICIAL_PD = 3*pi/2
 
     #Posiciones MAX y MIN
-    Q0_MIN_PD = 0
-    Q0_MAX_PD = 2*pi
+    Q0_MIN_PD = 0 
+    Q0_MAX_PD = 2*pi 
 
-    Q1_MIN_PD = 0
+    Q1_MIN_PD = -pi/2
     Q1_MAX_PD = 2*pi
     
     Q2_MIN_PD = 0
-    Q2_MAX_PD = 2*pi
+    Q2_MAX_PD = 3*pi
 
     #Asignación de los puntos
     while 1:
         print("\033[;36m"+"Analsis PD"+'\033[0;m')
         xC, yC = obtener_trayectoria()
-        seleccion = bool(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: "))
+        seleccion = bool(int(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: ")))
         if seleccion:
             break
 
@@ -182,9 +182,9 @@ def calculo_PD(rutina):
             return 0
     
     #Duplicado de la trayectoria en espejo
-    q0v.extend(q0v[:-1])
-    q1v.extend(q1v[:-1])
-    q2v.extend(q2v[:-1])
+    q0v.extend(q0v[::-1])
+    q1v.extend(q1v[::-1])
+    q2v.extend(q2v[::-1])
 
     #Creación de JSON para su facil acceso
     juntas = {

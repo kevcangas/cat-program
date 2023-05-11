@@ -163,18 +163,19 @@ def calculo_juntas_PD(L1,
 
     #Ajuste de las variables con valores MAX y MIN
     if q0 > Q0_MAX:
+        print(f"PD Se alcanzó el tope max en q0 {q0}")
         q0 = Q0_MAX
-        print("PD Se alcanzó el tope max en q0")
     elif q0 < Q0_MIN:
+        print(f"PD Se alcanzó el tope min en q0 {q0}")
         q0 = Q0_MIN
-        print("PD Se alcanzó el tope min en q0")
-    
+        
     if q1 > Q1_MAX:
+        print(f"PD Se alcanzó el tope max en q1 {q1}")
         q1 = Q1_MAX
-        print("PD Se alcanzó el tope max en q1")
     elif q1 < Q1_MIN:
+        print(f"PD Se alcanzó el tope min en q1 {q1}")
         q1 = Q1_MIN
-        print("PD Se alcanzó el tope min en q1")
+        
     
     if q2 > Q2_MAX:
         q2 = Q2_MAX
