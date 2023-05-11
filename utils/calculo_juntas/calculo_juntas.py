@@ -70,26 +70,26 @@ def calculo_juntas_PT(L1,
     q3 = q2
 
     #Ajuste de las variables con valores MAX y MIN
-    # if q0 > Q0_MAX:
-    #     q0 = Q0_MAX
-    #     print("PT Se alcanzó el tope max en q0")
-    # elif q0 < Q0_MIN:
-    #     q0 = Q0_MIN
-    #     print("PT Se alcanzó el tope min en q0")
+    if q0 > Q0_MAX:
+        q0 = Q0_MAX
+        print("PT Se alcanzó el tope max en q0")
+    elif q0 < Q0_MIN:
+        q0 = Q0_MIN
+        print("PT Se alcanzó el tope min en q0")
     
-    # if q1 > Q1_MAX:
-    #     q1 = Q1_MAX
-    #     print("PT Se alcanzó el tope max en q1")
-    # elif q1 < Q1_MIN:
-    #     q1 = Q1_MIN
-    #     print("PT Se alcanzó el tope min en q1")
+    if q1 > Q1_MAX:
+        q1 = Q1_MAX
+        print("PT Se alcanzó el tope max en q1")
+    elif q1 < Q1_MIN:
+        q1 = Q1_MIN
+        print("PT Se alcanzó el tope min en q1")
     
-    # if q2 > Q2_MAX:
-    #     q2 = Q2_MAX
-    #     print("PT Se alcanzó el tope max en q2")
-    # elif q2 < Q2_MIN:
-    #     q2 = Q2_MIN
-    #     print("PT Se alcanzó el tope min en q2")
+    if q2 > Q2_MAX:
+        q2 = Q2_MAX
+        print("PT Se alcanzó el tope max en q2")
+    elif q2 < Q2_MIN:
+        q2 = Q2_MIN
+        print("PT Se alcanzó el tope min en q2")
 
     #Agregado de las variables al vector a guardar
     return round(q0*180/pi), round(q1*180/pi), round(q2*180/pi)
@@ -162,26 +162,26 @@ def calculo_juntas_PD(L1,
     q2 = q2.real + Q2_INICIAL
 
     #Ajuste de las variables con valores MAX y MIN
-    # if q0 > Q0_MAX:
-    #     q0 = Q0_MAX
-    #     print("PD Se alcanzó el tope max en q0")
-    # elif q0 < Q0_MIN:
-    #     q0 = Q0_MIN
-    #     print("PD Se alcanzó el tope min en q0")
+    if q0 > Q0_MAX:
+        q0 = Q0_MAX
+        print("PD Se alcanzó el tope max en q0")
+    elif q0 < Q0_MIN:
+        q0 = Q0_MIN
+        print("PD Se alcanzó el tope min en q0")
     
-    # if q1 > Q1_MAX:
-    #     q1 = Q1_MAX
-    #     print("PD Se alcanzó el tope max en q1")
-    # elif q1 < Q1_MIN:
-    #     q1 = Q1_MIN
-    #     print("PD Se alcanzó el tope min en q1")
+    if q1 > Q1_MAX:
+        q1 = Q1_MAX
+        print("PD Se alcanzó el tope max en q1")
+    elif q1 < Q1_MIN:
+        q1 = Q1_MIN
+        print("PD Se alcanzó el tope min en q1")
     
-    # if q2 > Q2_MAX:
-    #     q2 = Q2_MAX
-    #     print("PD Se alcanzó el tope max en q2")
-    # elif q2 < Q2_MIN:
-    #     q2 = Q2_MIN
-    #     print("PD Se alcanzó el tope min en q2")
+    if q2 > Q2_MAX:
+        q2 = Q2_MAX
+        print("PD Se alcanzó el tope max en q2")
+    elif q2 < Q2_MIN:
+        q2 = Q2_MIN
+        print("PD Se alcanzó el tope min en q2")
 
     #Agregado de las variables al vector a guardar
     return round(q0*180/pi), round(q1*180/pi), round(q2*180/pi)
