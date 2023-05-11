@@ -15,7 +15,7 @@ from functions import DHT11
 from functions import HCXX
 from functions import HW139
 from functions import LDR
-#from functions import MQ2
+from functions import MQ2
 from functions import Oled
 from functions import Servomotores
 from functions import FuncionesPrincipales as FP
@@ -90,8 +90,8 @@ def run():
     print("Configuracion LDR: Listo")
 
 
-    # #CONFIGURACIÓN SENSOR MQ2
-    # SENSOR_HUMO = MQ2.configuracion_MQ2()
+    #CONFIGURACIÓN SENSOR MQ2
+    SENSOR_HUMO = MQ2.configuracion_MQ2()
     print("Configuración sensor humo: Listo")
 
 
@@ -140,7 +140,7 @@ def run():
         #Lectura de sensores
         temperatura = DHT11.lectura_temperatura(DHT, temp_inicial)
         temp_inicial = temperatura
-        #gas_humo = MQ2.medicion_gas(SENSOR_HUMO)
+        gas_humo = MQ2.medicion_gas(SENSOR_HUMO)
         presencia = HCXX.deteccion_presencia(PIN_PIR)
         luz = LDR.deteccion_luz(PIN_LDR)
         tacto = (HW139.deteccion_caricia(PIN_HW139_1) or 
@@ -172,7 +172,7 @@ def run():
             URL_SERVIDOR,
             PAGINA_ENV,
             [temperatura, 
-             0, #################################################
+             gas_humo,
              presencia,
              luz,
              tacto,
