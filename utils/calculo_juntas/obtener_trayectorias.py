@@ -42,6 +42,13 @@ def obtener_trayectoria():
         label = 'Final'
     )
 
+    plt.plot(
+        coordenadas[:, 0],
+        coordenadas[:, 1],
+        'y-',
+        label='Puntos de generación'
+    )
+
     plt.title("Trayectoria")
     plt.legend(loc = "upper left")
 
