@@ -26,7 +26,7 @@ def calculo_PT(rutina):
     #Posición inicial de las variables de junta (Radianes)    
     Q0_INICIAL_PT = 0
     Q1_INICIAL_PT = pi/2
-    Q2_INICIAL_PT = 0
+    Q2_INICIAL_PT = 3*pi/2
 
     #Posiciones MAX y MIN
     Q0_MIN_PT = 0
@@ -40,7 +40,7 @@ def calculo_PT(rutina):
 
     #Asignación de los puntos
     while 1:
-        print("\033[;36m"+"Analsis PT")
+        print("\033[;36m"+"Analsis PT"+'\033[0;m')
         xC, yC = obtener_trayectoria()
         seleccion = bool(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: "))
         if seleccion:
@@ -122,8 +122,8 @@ def calculo_PD(rutina):
 
     #Posición inicial de las variables de junta (Radianes)    
     Q0_INICIAL_PD = 0
-    Q1_INICIAL_PD = pi
-    Q2_INICIAL_PD = 0
+    Q1_INICIAL_PD = pi/2
+    Q2_INICIAL_PD = 3*pi/2
 
     #Posiciones MAX y MIN
     Q0_MIN_PD = 0
@@ -137,7 +137,7 @@ def calculo_PD(rutina):
 
     #Asignación de los puntos
     while 1:
-        print("\033[;36m"+"Analsis PD")
+        print("\033[;36m"+"Analsis PD"+'\033[0;m')
         xC, yC = obtener_trayectoria()
         seleccion = bool(input("Estas de acuerdo con la trayectoria?\n0 -> No\n1 -> Sí: "))
         if seleccion:
