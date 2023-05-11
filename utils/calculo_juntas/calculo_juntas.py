@@ -65,8 +65,8 @@ def calculo_juntas_PT(L1,
     
     #Resumen variables
     q0 = q0.real + Q0_INICIAL
-    q1 = Q1_INICIAL - q1.real 
-    q2 = Q2_INICIAL - acos((a**2+L3**2-b**2)/(2*a*L3)).real
+    q1 = pi + q1.real - Q1_INICIAL
+    q2 = acos((a**2+L3**2-b**2)/(2*a*L3)).real + Q2_INICIAL
     q3 = q2
 
     #Ajuste de las variables con valores MAX y MIN
@@ -159,7 +159,7 @@ def calculo_juntas_PD(L1,
     #print(q1)
     #Resumen variables
     q0 = q0.real + Q0_INICIAL
-    q1 = Q1_INICIAL + q1.real 
+    q1 = q1.real + pi - Q1_INICIAL 
     q2 = q2.real + Q2_INICIAL
 
     #Ajuste de las variables con valores MAX y MIN
