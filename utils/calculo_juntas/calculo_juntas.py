@@ -86,10 +86,10 @@ def calculo_juntas_PT(L1,
     
     if q2 > Q2_MAX:
         q2 = Q2_MAX
-        print("PT Se alcanzó el tope max en q2")
+        print(f"PT Se alcanzó el tope max en q2 {q2}")
     elif q2 < Q2_MIN:
         q2 = Q2_MIN
-        print("PT Se alcanzó el tope min en q2")
+        print(f"PT Se alcanzó el tope min en q2 {q2}")
 
     #Agregado de las variables al vector a guardar
     return round(q0*180/pi), round(q1*180/pi), round(q2*180/pi)
