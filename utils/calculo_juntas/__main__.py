@@ -8,7 +8,6 @@ from utils.calculo_juntas.obtener_trayectorias import obtener_trayectoria
 from utils.calculo_juntas.calculo_juntas import calculo_juntas_PT, calculo_juntas_PD
 
 
-#Programa principal
 def calculo_PT(xC, yC, rutina):
 
     #Creación de las listas con las trayectorias
@@ -193,6 +192,7 @@ def calculo_PD(xC, yC, rutina):
     print("Calculo juntas delanteras: Listo!") 
 
 
+#Programa principal
 def run():
     rutina = input("Introduce la rutina que es: ")
     while 1:
