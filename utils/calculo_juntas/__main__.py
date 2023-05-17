@@ -35,7 +35,7 @@ def calculo_PT(rutina):
     Q1_MIN_PT = 0
     Q1_MAX_PT = pi
     
-    Q2_MIN_PT = 70*pi/180
+    Q2_MIN_PT = 80*pi/180
     Q2_MAX_PT = 108*pi/180
 
     #Asignación de los puntos
