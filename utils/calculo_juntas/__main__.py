@@ -123,7 +123,7 @@ def calculo_PD(rutina):
     #Posición inicial de las variables de junta (Radianes)    
     Q0_INICIAL_PD = pi/2+0.9
     Q1_INICIAL_PD = 0
-    Q2_INICIAL_PD = pi/8
+    Q2_INICIAL_PD = pi/2 + 0.4
 
     #Posiciones MAX y MIN
     Q0_MIN_PD = 0 
@@ -132,8 +132,8 @@ def calculo_PD(rutina):
     Q1_MIN_PD = 0
     Q1_MAX_PD = pi
     
-    Q2_MIN_PD = pi/2-0.75
-    Q2_MAX_PD = pi/2+0.75
+    Q2_MIN_PD = pi/2 + 0.4
+    Q2_MAX_PD = pi/2 + 1.5
 
     #Asignación de los puntos
     while 1:
