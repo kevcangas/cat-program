@@ -35,7 +35,7 @@ def calculo_PT(rutina):
     Q1_MIN_PT = 0
     Q1_MAX_PT = pi
     
-    Q2_MIN_PT = 70*pi/180
+    Q2_MIN_PT = 80*pi/180
     Q2_MAX_PT = 108*pi/180
 
     #Asignación de los puntos
@@ -121,9 +121,9 @@ def calculo_PD(rutina):
     POSICION_SERVO_HOMBRO = 0
 
     #Posición inicial de las variables de junta (Radianes)    
-    Q0_INICIAL_PD = pi/2
+    Q0_INICIAL_PD = pi/2+0.9
     Q1_INICIAL_PD = 0
-    Q2_INICIAL_PD = 0
+    Q2_INICIAL_PD = pi/2 + 0.4
 
     #Posiciones MAX y MIN
     Q0_MIN_PD = 0 
@@ -132,8 +132,8 @@ def calculo_PD(rutina):
     Q1_MIN_PD = 0
     Q1_MAX_PD = pi
     
-    Q2_MIN_PD = 0
-    Q2_MAX_PD = 3*pi
+    Q2_MIN_PD = pi/2 + 0.4
+    Q2_MAX_PD = pi/2 + 1.5
 
     #Asignación de los puntos
     while 1:

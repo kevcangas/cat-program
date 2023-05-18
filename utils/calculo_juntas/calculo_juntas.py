@@ -66,7 +66,7 @@ def calculo_juntas_PT(L1,
     #Resumen variables
     q0 = q0.real + Q0_INICIAL
     q1 = pi + q1.real - Q1_INICIAL
-    q2 = acos((a**2+L3**2-b**2)/(2*a*L3)).real + Q2_INICIAL
+    q2 = pi - acos((a**2+L3**2-b**2)/(2*a*L3)).real + Q2_INICIAL
     q3 = q2
 
     #Ajuste de las variables con valores MAX y MIN
@@ -158,9 +158,10 @@ def calculo_juntas_PD(L1,
 
     #print(q1)
     #Resumen variables
-    q0 = q0.real + Q0_INICIAL
-    q1 = q1.real + pi - Q1_INICIAL 
-    q2 = q2.real + Q2_INICIAL
+    #q0 = q0.real + Q0_INICIAL
+    q0 = Q0_INICIAL
+    q1 = pi + q1.real - Q1_INICIAL 
+    q2 = pi + q2.real + Q2_INICIAL
 
     #Ajuste de las variables con valores MAX y MIN
     if q0 > Q0_MAX:
@@ -180,10 +181,10 @@ def calculo_juntas_PD(L1,
     
     if q2 > Q2_MAX:
         q2 = Q2_MAX
-        print("PD Se alcanzó el tope max en q2")
+        print(f"PD Se alcanzó el tope max en q2 {q2}")
     elif q2 < Q2_MIN:
         q2 = Q2_MIN
-        print("PD Se alcanzó el tope min en q2")
+        print(f"PD Se alcanzó el tope min en q2 {q2}")
 
     #Agregado de las variables al vector a guardar
     return round(q0*180/pi), round(q1*180/pi), round(q2*180/pi)
