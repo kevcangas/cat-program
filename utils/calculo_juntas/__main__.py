@@ -24,7 +24,7 @@ def calculo_PT(rutina):
     POSICION_SERVO_HOMBRO = 0
 
     #Posición inicial de las variables de junta (Radianes)    
-    Q0_INICIAL_PT = pi/2
+    Q0_INICIAL_PT = pi/2 - 0.05
     Q1_INICIAL_PT = -pi/8
     Q2_INICIAL_PT = 0
 
@@ -121,9 +121,9 @@ def calculo_PD(rutina):
     POSICION_SERVO_HOMBRO = 0
 
     #Posición inicial de las variables de junta (Radianes)    
-    Q0_INICIAL_PD = pi/2+0.9
-    Q1_INICIAL_PD = pi/8
-    Q2_INICIAL_PD = pi/2 + 0.4
+    Q0_INICIAL_PD = pi/2 + 0.3
+    Q1_INICIAL_PD = -pi/8
+    Q2_INICIAL_PD = 0
 
     #Posiciones MAX y MIN
     Q0_MIN_PD = 0 

@@ -161,7 +161,7 @@ def calculo_juntas_PD(L1,
     #q0 = q0.real + Q0_INICIAL
     q0 = Q0_INICIAL
     q1 = pi + q1.real + Q1_INICIAL 
-    q2 = pi + q2.real + Q2_INICIAL
+    q2 = q2.real + Q2_INICIAL
 
     #Ajuste de las variables con valores MAX y MIN
     if q0 > Q0_MAX:
