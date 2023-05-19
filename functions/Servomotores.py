@@ -26,49 +26,49 @@ def configuracion_servomotores():
 #Función para la carga de rutinas
 def cargar_rutina(id_mov):
     if(id_mov==0):
-        with open(r'data/rutinas_py/reposo_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/reposo_PT.json') as f:
             PT = json.load(f)
-        with open(r'data/rutinas_py/reposo_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/reposo_PD.json') as f:
             PD = json.load(f)
 
     elif(id_mov==1):
-        with open(r'data/rutinas_py/pie_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/pie_PT.json') as f:
             PT = json.load(f)
-        with open(r'data/rutinas_py/pie_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/pie_PD.json') as f:
             PD = json.load(f)
 
     elif(id_mov==2):
-        with open(r'data/rutinas_py/sentado_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/sentado_PT.json') as f:
             PT = json.load(f)
-        with open(r'data/rutinas_py/sentado_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/sentado_PD.json') as f:
             PD = json.load(f)
 
     elif(id_mov==3):
-        with open(r'data/rutinas_py/jugando_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/jugando_PT.json') as f:
             PT = json.load(f)
-        with open(r'data/rutinas_py/jugando_PD1.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/jugando_PD1.json') as f:
             PD1 = json.load(f)
-        with open(r'data/rutinas_py/jugando_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/jugando_PD.json') as f:
             PD2 = json.load(f)
 
         return PT,PD1,PD2
 
     elif(id_mov==4):
-        with open(r'data/rutinas_py/estirado_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/estirado_PT.json') as f:
             PT = json.load(f)
-        with open(r'data/rutinas_py/estirado_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/estirado_PD.json') as f:
             PD = json.load(f)
 
     elif(id_mov==5):
-        with open(r'data/rutinas_py/asustado_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/asustado_PT.json') as f:
             PT = json.load(f)
-        with open(r'data/rutinas_py/asustado_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/asustado_PD.json') as f:
             PD = json.load(f)
     
     elif(id_mov==6):
-        with open(r'data/rutinas_py/caminando_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/caminando_PT.json') as f:
             PT = json.load(f)
-        with open(r'data/rutinas_py/caminando_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/caminando_PD.json') as f:
             PD = json.load(f)
     
     return PT,PD 
@@ -95,7 +95,10 @@ def movPatas(pca,
     POSICION_SERVOS = [matT['q0v'][i], matT['q1v'][i], matT['q2v'][i]]
     for j in range(3):
         print(POSICION_SERVOS[j])
-        pca.servo[PATAT_2[j]].angle = POSICION_SERVOS[j]
+        if j != 0:
+            pca.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j]
+        else:
+            pca.servo[PATAT_2[0]].angle = POSICION_SERVOS[j]
     
     #Pata delantera R
     POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
@@ -107,7 +110,10 @@ def movPatas(pca,
     POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
     for j in range(3):
         print(POSICION_SERVOS[j])
-        pca.servo[PATAD_2[j]].angle = POSICION_SERVOS[j]
+        if j != 0:
+            pca.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j]
+        else:
+            pca.servo[PATAD_2[0]].angle = 180 - 125
 
 
 #Realiza el movimiento de la primera mitad de la rutina
