@@ -25,7 +25,7 @@ def calculo_PT(rutina):
 
     #Posición inicial de las variables de junta (Radianes)    
     Q0_INICIAL_PT = pi/2
-    Q1_INICIAL_PT = 0
+    Q1_INICIAL_PT = -pi/8
     Q2_INICIAL_PT = 0
 
     #Posiciones MAX y MIN
@@ -122,7 +122,7 @@ def calculo_PD(rutina):
 
     #Posición inicial de las variables de junta (Radianes)    
     Q0_INICIAL_PD = pi/2+0.9
-    Q1_INICIAL_PD = 0
+    Q1_INICIAL_PD = pi/8
     Q2_INICIAL_PD = pi/2 + 0.4
 
     #Posiciones MAX y MIN
