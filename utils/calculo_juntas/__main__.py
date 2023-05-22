@@ -132,8 +132,8 @@ def calculo_PD(rutina):
     Q1_MIN_PD = 0
     Q1_MAX_PD = pi
     
-    Q2_MIN_PD = pi/2 + 0.4
-    Q2_MAX_PD = pi/2 + 1.5
+    Q2_MIN_PD = pi/2 - 0.6
+    Q2_MAX_PD = pi
 
     #Asignación de los puntos
     while 1:
