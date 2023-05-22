@@ -18,9 +18,9 @@ def run():
     size_PT_1 = len(PT_1['q0v'])
     size_PT_2 = len(PT_2['q0v'])
 
-    q0v = PT_1['q0v'][:size_PT_1//2] + PT_2['q0v'][:size_PT_2//2] + PT_2['q0v'][size_PT_2//2:] + PT_1['q0v'][size_PT_1//2:]
-    q1v = PT_1['q1v'][:size_PT_1//2] + PT_2['q1v'][:size_PT_2//2] + PT_2['q1v'][size_PT_2//2:] + PT_1['q1v'][size_PT_1//2:]
-    q2v = PT_1['q2v'][:size_PT_1//2] + PT_2['q2v'][:size_PT_2//2] + PT_2['q2v'][size_PT_2//2:] + PT_1['q2v'][size_PT_1//2:]
+    q0v = PT_1['q0v'][:size_PT_1//2] + [PT_1['q0v'][size_PT_2//2] for _ in range(0,200)] + PT_2['q0v'][:size_PT_2//2] + PT_2['q0v'][size_PT_2//2:] + [PT_1['q0v'][size_PT_1//2] for _ in range(0,200)] + PT_1['q0v'][size_PT_1//2:]
+    q1v = PT_1['q1v'][:size_PT_1//2] + [PT_1['q1v'][size_PT_2//2] for _ in range(0,200)] + PT_2['q1v'][:size_PT_2//2] + PT_2['q1v'][size_PT_2//2:] + [PT_1['q1v'][size_PT_2//2] for _ in range(0,200)] + PT_1['q1v'][size_PT_1//2:]
+    q2v = PT_1['q2v'][:size_PT_1//2] + [PT_1['q2v'][size_PT_2//2] for _ in range(0,200)] + PT_2['q2v'][:size_PT_2//2] + PT_2['q2v'][size_PT_2//2:] + [PT_1['q2v'][size_PT_2//2] for _ in range(0,200)] + PT_1['q2v'][size_PT_1//2:]
 
     #Creación de JSON para su facil acceso
     juntas = {
@@ -46,9 +46,9 @@ def run():
     size_PD_1 = len(PD_1['q0v'])
     size_PD_2 = len(PD_2['q0v'])
 
-    q0v = PD_1['q0v'][:size_PD_1//2] + PD_2['q0v'][:size_PD_2//2] + PD_2['q0v'][size_PD_2//2:] + PD_1['q0v'][size_PD_1//2:]
-    q1v = PD_1['q1v'][:size_PD_1//2] + PD_2['q1v'][:size_PD_2//2] + PD_2['q1v'][size_PD_2//2:] + PD_1['q1v'][size_PD_1//2:]
-    q2v = PD_1['q2v'][:size_PD_1//2] + PD_2['q2v'][:size_PD_2//2] + PD_2['q2v'][size_PD_2//2:] + PD_1['q2v'][size_PD_1//2:]
+    q0v = PD_1['q0v'][:size_PD_1//2] + [PD_1['q0v'][size_PT_2//2] for _ in range(0,200)] + PD_2['q0v'][:size_PD_2//2] + PD_2['q0v'][size_PD_2//2:] + [PD_1['q0v'][size_PT_2//2] for _ in range(0,200)] + PD_1['q0v'][size_PD_1//2:]
+    q1v = PD_1['q1v'][:size_PD_1//2] + [PD_1['q1v'][size_PT_2//2] for _ in range(0,200)] + PD_2['q1v'][:size_PD_2//2] + PD_2['q1v'][size_PD_2//2:] + [PD_1['q1v'][size_PT_2//2] for _ in range(0,200)] + PD_1['q1v'][size_PD_1//2:]
+    q2v = PD_1['q2v'][:size_PD_1//2] + [PD_1['q2v'][size_PT_2//2] for _ in range(0,200)] + PD_2['q2v'][:size_PD_2//2] + PD_2['q2v'][size_PD_2//2:] + [PD_1['q2v'][size_PT_2//2] for _ in range(0,200)] + PD_1['q2v'][size_PD_1//2:]
 
     #Creación de JSON para su facil acceso
     juntas = {
