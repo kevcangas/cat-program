@@ -27,7 +27,7 @@ def run():
     #Inilización de los actuadores y establecimiento de las conexiones
     
     #PAGINAS PARA EL ENVIO Y RECEPCIÓN DE DATOS
-    URL_SERVIDOR = 'http://169.254.2.167:80'
+    URL_SERVIDOR = 'http://192.168.1.198:80'
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
     PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion/"
@@ -140,7 +140,7 @@ def run():
         #Lectura de sensores
         temperatura = DHT11.lectura_temperatura(DHT, temp_inicial)
         temp_inicial = temperatura
-        gas_humo = MQ2.medicion_gas(SENSOR_HUMO)
+        gas_humo = 1 if MQ2.medicion_gas(SENSOR_HUMO) > 3 else 0
         presencia = HCXX.deteccion_presencia(PIN_PIR)
         luz = LDR.deteccion_luz(PIN_LDR)
         tacto = (HW139.deteccion_caricia(PIN_HW139_1) or 

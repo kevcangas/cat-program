@@ -2,7 +2,7 @@ import requests
 
 
 #Envia la información contendia en lecturas a la página
-def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = False):
+def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = True):
     data = {
         'temperatura': lecturas[0],
         'gas_humo': lecturas[1],

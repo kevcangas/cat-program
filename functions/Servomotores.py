@@ -88,32 +88,46 @@ def movPatas(pca,
     #Pata trasera R 
     POSICION_SERVOS = [matT['q0v'][i], matT['q1v'][i], matT['q2v'][i]]
     for j in range(3):
-        print(POSICION_SERVOS[j])
-        pca.servo[PATAT_1[j]].angle = POSICION_SERVOS[j]
+        #print(POSICION_SERVOS[j])
+        if j == 1:
+            pca.servo[PATAT_1[j]].angle = POSICION_SERVOS[j]
+        elif j == 2:
+            pca.servo[PATAT_1[j]].angle = POSICION_SERVOS[j] + 16
+        elif j == 0:
+            pca.servo[PATAT_1[0]].angle = POSICION_SERVOS[j] - 1
 
     #Pata trasera L
     POSICION_SERVOS = [matT['q0v'][i], matT['q1v'][i], matT['q2v'][i]]
     for j in range(3):
-        print(POSICION_SERVOS[j])
-        if j != 0:
+        #print(POSICION_SERVOS[j])
+        if j == 1:
+            pca.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j] + 15
+        elif j == 2:
             pca.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j]
-        else:
-            pca.servo[PATAT_2[0]].angle = POSICION_SERVOS[j]
+        elif j == 0:
+            pca.servo[PATAT_2[0]].angle = POSICION_SERVOS[j] + 12
     
     #Pata delantera R
     POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
     for j in range(3):
-        print(POSICION_SERVOS[j])
-        pca.servo[PATAD_1[j]].angle = POSICION_SERVOS[j]
-    
+        #print(POSICION_SERVOS[j])
+        if j == 1:
+            pca.servo[PATAD_1[j]].angle = POSICION_SERVOS[j] + 20
+        elif j == 2:
+            pca.servo[PATAD_1[j]].angle = POSICION_SERVOS[j]
+        elif j == 0:
+            pca.servo[PATAD_1[0]].angle = POSICION_SERVOS[j] 
+        
     #Pata delantera L
     POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
     for j in range(3):
-        print(POSICION_SERVOS[j])
-        if j != 0:
+        #print(POSICION_SERVOS[j])
+        if j == 1:
+            pca.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j] 
+        elif j == 2:
             pca.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j]
-        else:
-            pca.servo[PATAD_2[0]].angle = 180 - 125
+        elif j == 0:
+            pca.servo[PATAD_2[0]].angle = 180 - POSICION_SERVOS[j] + 6
 
 
 #Realiza el movimiento de la primera mitad de la rutina
@@ -124,6 +138,7 @@ def realizarRutinaP1(pca, rutina_seleccionada):
 
     for i in range(control_pasos):
         movPatas(pca, PT, PD, i, i)
+        #sleep(0.02)
 
 
 #Esta función realiza el movimiento de la segunda mitad de la rutina
@@ -134,3 +149,4 @@ def realizarRutinaP2(pca, rutina_seleccionada):
 
     for i in range(control_pasos, pasos_movimientos):
         movPatas(pca, PT, PD, i, i)
+        #sleep(0.02)
