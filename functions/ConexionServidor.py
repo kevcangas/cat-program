@@ -2,7 +2,7 @@ import requests
 
 
 #Envia la información contendia en lecturas a la página
-def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = True):
+def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = False):
     data = {
         'temperatura': lecturas[0],
         'gas_humo': lecturas[1],
@@ -14,7 +14,11 @@ def envio_datos(URL_SERVIDOR, PAGINA, lecturas, verbose = True):
         'expresion': lecturas[7]
     }
     if verbose: print(data)
-    requests.post(url= URL_SERVIDOR + PAGINA, json = data)
+    try:
+        requests.post(url= URL_SERVIDOR + PAGINA, json = data)
+        return True
+    except:
+        return False
 
 
 #Regresa un diccionario con la información recibida de la página
@@ -23,7 +27,17 @@ def recepcion_datos(URL_SERVIDOR, PAGINA_REC):
         response = requests.get(URL_SERVIDOR + PAGINA_REC)
         return response.json()
     except:
-        return False
+        default = {
+            "rutina_manual":0,
+            "expresion_manual":0,
+            
+            "automatico":True,
+            "encendido":True,
+            
+            "comandos_realizados":True
+        }
+
+        return default
 
 
 #Lee el comando de encendido o apagado
