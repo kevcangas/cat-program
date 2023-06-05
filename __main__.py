@@ -200,7 +200,7 @@ def run():
         if automatico:
         
             #Acciones automaticas si se detecta presencia
-            if presencia:
+            if presencia and luz:
                 #Detección expresión enojo
                 if etiqueta_expresion == 0:
 
@@ -301,7 +301,7 @@ def run():
                         )
             
             #Si no se detecta presencia
-            else:
+            elif luz and not presencia:
 
                 if tiempo_actual - tiempo_inicial > 300:
                     Servomotores.movCabeza(3)
@@ -327,12 +327,25 @@ def run():
                 automatico = False
                 )
         
+        
+        #Si se detecta humo
         if gas_humo == 1:
             audio.reproducir_audio()
         
-        if tacto == 1:
+        #Tacto en la cabeza
+        if PIN_HW139_1 == 1:
             Servomotores.movCabeza(CONTROL_SERVOS, 1)
             Servomotores.movCabeza(CONTROL_SERVOS, 3)
+        
+        #Tacto en la espalda
+        if (PIN_HW139_2 or PIN_HW139_3) == 1: 
+            Servomotores.realizarRutinaP1(CONTROL_SERVOS, 4)
+            time.sleep(1)
+            Servomotores.realizarRutinaP2(CONTROL_SERVOS, 4) 
+
+        #Tacto en la cola
+        if PIN_HW139_4 == 1:
+            Servomotores.movCola(CONTROL_SERVOS)
             
             
 

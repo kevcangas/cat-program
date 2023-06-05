@@ -64,9 +64,9 @@ def cargar_rutina(id_mov):
             PD = json.load(f)
 
     elif(id_mov==5):
-        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/asustado_PT.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/estirado_PT.json') as f:
             PT = json.load(f)
-        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/asustado_PD.json') as f:
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/estirado_PD.json') as f:
             PD = json.load(f)
     
     elif(id_mov==6):
