@@ -179,7 +179,7 @@ def realizarRutinaP1(pca1,rutina_seleccionada, pca2 = None):
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos):
-            movPatas(pca1,pca2, [PT], [PD], i, i)
+            movPatas(pca1, [PT], [PD], i, i)
             #sleep(0.02)
     
     else:
@@ -188,7 +188,7 @@ def realizarRutinaP1(pca1,rutina_seleccionada, pca2 = None):
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos):
-            movPatas(pca1,pca2, [PT], [PD1,PD2], i, i)
+            movPatas(pca1, [PT], [PD1,PD2], i, i)
             #sleep(0.02)
 
 
@@ -203,7 +203,7 @@ def realizarRutinaP2(pca1, rutina_seleccionada, pca2=None):
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos, pasos_movimientos):
-            movPatas(pca1,pca2, [PT], [PD], i, i)
+            movPatas(pca1, [PT], [PD], i, i)
             #sleep(0.02)
     
     else:
@@ -212,7 +212,7 @@ def realizarRutinaP2(pca1, rutina_seleccionada, pca2=None):
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos, pasos_movimientos):
-            movPatas(pca1,pca2, [PT], [PD1,PD2], i, i)
+            movPatas(pca1, [PT], [PD1,PD2], i, i)
             #sleep(0.02)
 
 

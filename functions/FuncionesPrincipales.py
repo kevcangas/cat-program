@@ -10,7 +10,7 @@ from functions import ConexionServidor
 
 
 #Información para el envio de datos
-URL_SERVIDOR = 'http://169.254.2.167:80'
+URL_SERVIDOR = 'http://10.104.110.153:80'
 PAGINA_COMANDOS_REALIZADOS = "/control/gato/1/comandos/realizados/"
 
 
@@ -66,7 +66,8 @@ def rutinaControlada(tiempo_actual,
         rutina_seleccionada = rutina_aux
         expresion_seleccionada = expresion_aux
 
-        print("Movimiento iniciado")
+        print("Movimiento iniciado...")
+        print(f"Rutina seleccionada: {rutina_seleccionada}")
 
         #Mostrar expresion
         Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
@@ -101,6 +102,7 @@ def rutinaControlada(tiempo_actual,
         )
 
         print("Movimiento terminado")
+        print(f"Rutina seleccionada: {rutina_aux}")
 
         return tiempo_inicial, rutina_aux, mov_activado, expresion_aux, comandos_realizados
 

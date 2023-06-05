@@ -27,7 +27,7 @@ def run():
     #Inilización de los actuadores y establecimiento de las conexiones
     
     #PAGINAS PARA EL ENVIO Y RECEPCIÓN DE DATOS
-    URL_SERVIDOR = 'http://192.168.1.198:80'
+    URL_SERVIDOR = 'http://10.104.110.153:80'
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
     PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion/"
@@ -96,11 +96,11 @@ def run():
 
 
     #CONFIGURACIÓN SERVOMOTORES
-    CONTROL_SERVOS = Servomotores.configuracion_servomotores()
+    CONTROL_SERVOS = Servomotores.configuracion_servomotores(address=0x60)
     rutina = 0
     #Posición inicial
     PT, PD =  Servomotores.cargar_rutina(rutina)
-    Servomotores.movPatas(CONTROL_SERVOS,PT,PD)
+    Servomotores.movPatas(CONTROL_SERVOS,[PT],[PD])
     #Rutinas
     RUTINAS_NEUTRAL = [0, 1, 2, 4, 6]
     RUTINAS_FELICIDAD = [1, 3]
@@ -301,7 +301,7 @@ def run():
                         )
             
             #Si no se detecta presencia
-            elif luz and not presencia:
+            elif luz and presencia:
 
                 if tiempo_actual - tiempo_inicial > 300:
                     Servomotores.movCabeza(3)
