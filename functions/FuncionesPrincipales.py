@@ -27,6 +27,7 @@ def rutinaControlada(tiempo_actual,
                      oled2,
                      expresion_aux,
                      comandos_realizados,
+                     rutina_rostro,
                      automatico = True
                      ):
 
@@ -37,6 +38,7 @@ def rutinaControlada(tiempo_actual,
         #Selección automatica de rutinas y expresiones
         rutina_seleccionada = random.choice(rutinas)
         expresion_seleccionada = random.choice(imagenes_automatico)
+        rutina_rostro_seleccionada = random.choice(rutina_rostro)
 
         print("Movimiento iniciado")
         
@@ -45,9 +47,13 @@ def rutinaControlada(tiempo_actual,
 
         #Movimiento servomotores
         Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
+
+        #Movimiento cabeza y cola
+        Servomotores.movCabeza(CONTROL_SERVOS, rutina_rostro_seleccionada)
+
         mov_activado = True
         
-        #Estblecimiento del tiempo en que se activa el movimiento
+        #Establecimiento del tiempo en que se activa el movimiento
         tiempo_inicial = time.time()
 
         return tiempo_inicial, rutina_seleccionada, mov_activado, expresion_seleccionada, comandos_realizados

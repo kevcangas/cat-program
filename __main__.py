@@ -15,7 +15,7 @@ from functions import DHT11
 from functions import HCXX
 from functions import HW139
 from functions import LDR
-from functions import MQ2
+from functions import MQ2_V2
 from functions import Oled
 from functions import Servomotores
 from functions import FuncionesPrincipales as FP
@@ -91,7 +91,7 @@ def run():
 
 
     #CONFIGURACIÓN SENSOR MQ2
-    SENSOR_HUMO = MQ2.configuracion_MQ2()
+    SENSOR_HUMO = MQ2_V2.MQ2()
     print("Configuración sensor humo: Listo")
 
 
@@ -113,6 +113,14 @@ def run():
     automatico = 1
     comandos_realizados = 1
     print("Configuración servomotores: Listo")
+
+
+    #CONFIGURACIÓN CABEZA
+    RUTINAS_ROSTRO_NEUTRAL = [0,1,2]
+    RUTINAS_ROSTRO_FELICIDAD = [0,1,2,3,4]
+    RUTINAS_ROSTRO_ENOJO = [0]
+    RUTINAS_ROSTRO_TRISTEZA = [0,5]
+    Servomotores.movCabeza(CONTROL_SERVOS,0)
 
 
     #Espera del programa
@@ -140,7 +148,7 @@ def run():
         #Lectura de sensores
         temperatura = DHT11.lectura_temperatura(DHT, temp_inicial)
         temp_inicial = temperatura
-        gas_humo = 1 if MQ2.medicion_gas(SENSOR_HUMO) > 3 else 0
+        gas_humo = SENSOR_HUMO.MedicionGas()
         presencia = HCXX.deteccion_presencia(PIN_PIR)
         luz = LDR.deteccion_luz(PIN_LDR)
         tacto = (HW139.deteccion_caricia(PIN_HW139_1) or 
@@ -209,6 +217,7 @@ def run():
                         oled2 = OLED_2,
                         expresion_aux = expresion,
                         comandos_realizados = comandos_realizados,
+                        rutina_rostro=RUTINAS_ROSTRO_ENOJO,
                         automatico = True
                         )
 
@@ -228,6 +237,7 @@ def run():
                         oled2 = OLED_2,
                         expresion_aux = expresion,
                         comandos_realizados = comandos_realizados,
+                        rutina_rostro=RUTINAS_ROSTRO_FELICIDAD,
                         automatico = True
                         )
                     
@@ -247,6 +257,7 @@ def run():
                         oled2 = OLED_2,
                         expresion_aux = expresion,
                         comandos_realizados = comandos_realizados,
+                        rutina_rostro=RUTINAS_ROSTRO_NEUTRAL,
                         automatico = True
                         )
                     
@@ -266,6 +277,7 @@ def run():
                         oled1 = OLED_1,
                         oled2 = OLED_2,
                         expresion_aux = expresion,
+                        rutina_rostro=RUTINAS_ROSTRO_TRISTEZA,
                         automatico = True
                         )
                     
@@ -284,6 +296,7 @@ def run():
                         oled1 = OLED_1,
                         oled2 = OLED_2,
                         expresion_aux = expresion,
+                        rutina_rostro=[0],
                         automatico = True
                         )
             
@@ -291,13 +304,12 @@ def run():
             else:
 
                 if tiempo_actual - tiempo_inicial > 300:
-                    audio.reproducir_audio()
+                    Servomotores.movCabeza(3)
                     tiempo_inicial = time.time()
 
 
         #Selección de rutina manual
         else:
-            
             tiempo_inicial , rutina, mov_activado, expresion, comandos_realizados = FP.rutinaControlada(
                 tiempo_actual = tiempo_actual, 
                 tiempo_inicial = tiempo_inicial, 
@@ -311,8 +323,16 @@ def run():
                 oled2 = OLED_2,
                 expresion_aux = expresion_manual,
                 comandos_realizados = comandos_realizados,
+                rutina_rostro = [],
                 automatico = False
                 )
+        
+        if gas_humo == 1:
+            audio.reproducir_audio()
+        
+        if tacto == 1:
+            Servomotores.movCabeza(CONTROL_SERVOS, 1)
+            Servomotores.movCabeza(CONTROL_SERVOS, 3)
             
             
 
