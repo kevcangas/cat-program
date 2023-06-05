@@ -327,7 +327,7 @@ def run():
                 automatico = False
                 )
         
-        
+
         #Si se detecta humo
         if gas_humo == 1:
             audio.reproducir_audio()
@@ -335,6 +335,7 @@ def run():
         #Tacto en la cabeza
         if PIN_HW139_1 == 1:
             Servomotores.movCabeza(CONTROL_SERVOS, 1)
+            Oled.mostrar_imagen(1,OLED_1,OLED_2)
             Servomotores.movCabeza(CONTROL_SERVOS, 3)
         
         #Tacto en la espalda
