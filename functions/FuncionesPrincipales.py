@@ -33,7 +33,7 @@ def rutinaControlada(tiempo_actual,
 
 
     #Activación automatica del movimiento y expresion
-    if tiempo_actual - tiempo_inicial > 10 and automatico and mov_activado == False:
+    if tiempo_actual - tiempo_inicial > 20 and automatico and mov_activado == False:
         
         #Selección automatica de rutinas y expresiones
         rutina_seleccionada = random.choice(rutinas)
@@ -83,7 +83,7 @@ def rutinaControlada(tiempo_actual,
     
 
     #Desactivación del movimiento
-    if tiempo_actual - tiempo_inicial > 10 and mov_activado == True:
+    if tiempo_actual - tiempo_inicial > 5 and mov_activado == True:
         Servomotores.realizarRutinaP2(CONTROL_SERVOS, rutina_aux)
         mov_activado = False
 

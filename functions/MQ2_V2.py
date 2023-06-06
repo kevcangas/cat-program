@@ -198,7 +198,7 @@ class MQ2():
         read, raw_value = self.MQRead()
         medicion_gas = self.MQGetGasPercentage(read/self.Ro, self.GAS_LPG)
         medicion_humo = self.MQGetGasPercentage(read/self.Ro, self.GAS_SMOKE)
-        if medicion_gas > 0.6 or medicion_humo > 0.6:
+        if medicion_gas > 0.3 or medicion_humo > 0.3:
             return 1
         else:
             return 0

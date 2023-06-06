@@ -120,6 +120,7 @@ def run():
     RUTINAS_ROSTRO_FELICIDAD = [0,1,2,3,4]
     RUTINAS_ROSTRO_ENOJO = [0]
     RUTINAS_ROSTRO_TRISTEZA = [0,5]
+    Servomotores.movCabeza(CONTROL_SERVOS,2)
     Servomotores.movCabeza(CONTROL_SERVOS,0)
 
 
@@ -303,7 +304,7 @@ def run():
             #Si no se detecta presencia
             elif luz and presencia:
 
-                if tiempo_actual - tiempo_inicial > 300:
+                if tiempo_actual - tiempo_inicial > 30:
                     Servomotores.movCabeza(3)
                     tiempo_inicial = time.time()
 
@@ -330,22 +331,22 @@ def run():
 
         #Si se detecta humo
         if gas_humo == 1:
-            audio.reproducir_audio()
+            audio.reproducir_audio(ruta_audio = '/home/gato/TT2/programa_gato/data/audios/alarma.mp3')
         
         #Tacto en la cabeza
-        if PIN_HW139_1 == 1:
+        if PIN_HW139_1 == 1 and comandos_realizados == 1:
             Servomotores.movCabeza(CONTROL_SERVOS, 1)
             Oled.mostrar_imagen(1,OLED_1,OLED_2)
             Servomotores.movCabeza(CONTROL_SERVOS, 3)
         
         #Tacto en la espalda
-        if (PIN_HW139_2 or PIN_HW139_3) == 1: 
+        if (PIN_HW139_2 or PIN_HW139_3) == 1 and comandos_realizados == 1: 
             Servomotores.realizarRutinaP1(CONTROL_SERVOS, 4)
             time.sleep(1)
             Servomotores.realizarRutinaP2(CONTROL_SERVOS, 4) 
 
         #Tacto en la cola
-        if PIN_HW139_4 == 1:
+        if PIN_HW139_4 == 1 and comandos_realizados == 1:
             Servomotores.movCola(CONTROL_SERVOS)
             
             
