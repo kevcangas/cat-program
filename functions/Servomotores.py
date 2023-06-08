@@ -6,8 +6,6 @@ from time import sleep
 #externas
 from adafruit_servokit import ServoKit
 
-
-#Internas
 from functions import audio
 
 
@@ -88,18 +86,17 @@ def movPatas(pca1,
              PATAT_2=[2,3],
              PATAD_1=[4,5],
              PATAD_2=[6,7],
-             pca2 = None):
+             pca2=None):
     
-    if pca2 == None:
+    if pca2==None:
         pca2 = pca1
-    
     if len(matT) == 1:
         matT=matT[0]
         #Pata trasera R 
         POSICION_SERVOS = [matT['q0v'][i], matT['q1v'][i], matT['q2v'][i]]
         for j in range(2):
             if j == 0:
-                pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 25
+                pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 30
             elif j == 1:
                 pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 5
 
@@ -107,7 +104,7 @@ def movPatas(pca1,
         POSICION_SERVOS = [matT['q0v'][k], matT['q1v'][k], matT['q2v'][k]]
         for j in range(2):
             if j == 0:
-                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 5
+                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 10
             elif j == 1:
                 pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 50
     else:
@@ -117,7 +114,7 @@ def movPatas(pca1,
         POSICION_SERVOS = [matT1['q0v'][i], matT1['q1v'][i], matT1['q2v'][i]]
         for j in range(2):
             if j == 0:
-                pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 25
+                pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 30
             elif j == 1:
                 pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 5
 
@@ -125,7 +122,7 @@ def movPatas(pca1,
         POSICION_SERVOS = [matT2['q0v'][k], matT2['q1v'][k], matT2['q2v'][k]]
         for j in range(2):
             if j == 0:
-                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 5
+                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 10
             elif j == 1:
                 pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 50
         
@@ -136,17 +133,17 @@ def movPatas(pca1,
         POSICION_SERVOS = [matD['q0v'][k], matD['q1v'][k], matD['q2v'][k]]
         for j in range(2):
             if j == 0:
-                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] - 23
+                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 5
             elif j == 1:
-                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] - 15
+                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 10
             
         #Pata delantera L
         POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
         for j in range(2):
             if j == 0:
-                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 8
+                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 15
             elif j == 1:
-                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 5
+                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 5
          
     else:
         matD1 = matD[0]
@@ -155,24 +152,23 @@ def movPatas(pca1,
         POSICION_SERVOS = [matD1['q0v'][k], matD1['q1v'][k], matD1['q2v'][k]]
         for j in range(2):
             if j == 0:
-                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] - 23
+                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 5
             elif j == 1:
-                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] - 15
+                pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 10
             
         #Pata delantera L
         POSICION_SERVOS = [matD2['q0v'][i], matD2['q1v'][i], matD2['q2v'][i]]
         for j in range(2):
             if j == 0:
-                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 8
+                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 15
             elif j == 1:
-                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 5
+                pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 5
 
 
 #Realiza el movimiento de la primera mitad de la rutina
-def realizarRutinaP1(pca1,rutina_seleccionada, pca2 = None):
-    if pca2 == None:
+def realizarRutinaP1(pca1,rutina_seleccionada,pca2=None):
+    if pca2==None:
         pca2 = pca1
-
     if rutina_seleccionada != 3:
         PT,PD = cargar_rutina(rutina_seleccionada)
         pasos_movimientos = len(PT['q0v'])
@@ -194,9 +190,8 @@ def realizarRutinaP1(pca1,rutina_seleccionada, pca2 = None):
 
 #Esta función realiza el movimiento de la segunda mitad de la rutina
 def realizarRutinaP2(pca1, rutina_seleccionada, pca2=None):
-    if pca2 == None:
+    if pca2==None:
         pca2 = pca1
-
     if rutina_seleccionada != 3:
         PT,PD = cargar_rutina(rutina_seleccionada)
         pasos_movimientos = len(PT['q0v'])
@@ -216,11 +211,9 @@ def realizarRutinaP2(pca1, rutina_seleccionada, pca2=None):
             #sleep(0.02)
 
 
-#Rutina de caminar
-def caminar(pca1, pca2=None, rutina_seleccionada=6):
+def caminar(pca1, rutina_seleccionada = 6, pca2=None):
     if pca2 == None:
         pca2 = pca1
-        
     PT,PD = cargar_rutina(rutina_seleccionada)
     pasos_movimientos = len(PT['q0v'])
     control_pasos = pasos_movimientos//2-1
@@ -235,7 +228,7 @@ def caminar(pca1, pca2=None, rutina_seleccionada=6):
             j = 0
         
 
-#Movimeinto de la cabeza 
+
 def movCabeza(pca,
              rutina,
              CUELLO=8,
@@ -244,77 +237,51 @@ def movCabeza(pca,
              OREJAS=11
              ):
     
-
-    #Default
-    if rutina == 0: 
+    if rutina == 0: #DEFAULT
         pca.servo[CUELLO].angle = 90
         pca.servo[CABEZA].angle = 115
         pca.servo[BOCA].angle = 130
         pca.servo[OREJAS].angle = 90
     
-
-    #Sacudir cuello
-    elif rutina == 1: 
+    elif rutina == 1: #SACUDIR CUELLO
         rutina_cuello = [90,135,90,45,90]
-        for i in rutina_cuello:
-            pca.servo[CUELLO].angle = i
+        # rutina_cuello.append(range(135,45))
+        # rutina_cuello.append(range(45,90))
+
+        for i in range(len(rutina_cuello)):
+            pca.servo[CUELLO].angle = rutina_cuello[i]
             sleep(0.5)
         
         pca.servo[CABEZA].angle = 115
         pca.servo[BOCA].angle = 130
         pca.servo[OREJAS].angle = 90
     
-
-    #Movimiento orejas
-    elif rutina == 2: 
+    elif rutina == 2: #OREJAS
         pca.servo[CUELLO].angle = 90
         pca.servo[CABEZA].angle = 115
         pca.servo[BOCA].angle = 130
 
         rutina_orejas = [100,0,100]
-        for i in rutina_orejas:
-            pca.servo[OREJAS].angle = i
+        for i in range(len(rutina_orejas)):
+            pca.servo[OREJAS].angle = rutina_orejas[i]
             sleep(0.5)
     
-
-    #Movimiento boca y maullido
-    elif rutina == 3: 
+    elif rutina == 3: #BOCAS
         pca.servo[CUELLO].angle = 90
         pca.servo[CABEZA].angle = 115
         pca.servo[OREJAS].angle = 90
 
-        rutina_boca = [90,130,90]
-        for j,i in enumerate(rutina_boca):
-            pca.servo[BOCA].angle = i
-            sleep(0.5)
-            if j == 1:
+        rutina_boca = [130,100,130]
+        for i in range(len(rutina_boca)):
+            pca.servo[BOCA].angle = rutina_boca[i]
+            if i == 1:
                 audio.reproducir_audio()
-    
-    #Movimeinto cabeza arriba
-    elif rutina == 4:
-        pca.servo[CUELLO].angle = 90
-        pca.servo[BOCA].angle = 130
-        pca.servo[OREJAS].angle = 90
-
-        rutina_cabeza = [115, 165, 115]
-        for i in rutina_cabeza:
-            pca.servo[CABEZA].angle = i
             sleep(0.5)
-    
-    #Movimeinto cabeza abajo
-    elif rutina == 5:
-        pca.servo[CUELLO].angle = 90
-        pca.servo[BOCA].angle = 130
-        pca.servo[OREJAS].angle = 90
 
-        rutina_cabeza = [115, 75, 115]
-        for i in rutina_cabeza:
-            pca.servo[CABEZA].angle = i
-            sleep(0.5)
-        
-
-#Función para el movimiento de la cola
-def movCola(pca,COLA=12):
-    pca.servo[COLA].angle = 90
-    sleep(0.1)
-    pca.servo[COLA].angle = 180
+def movCola(pca,
+            COLA = 12
+            ):
+    rutina_cola = [10, 110, 10]
+    for i in range(len(rutina_cola)):
+        pca.servo[COLA].angle = rutina_cola[i]
+        sleep(1)

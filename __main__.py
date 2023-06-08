@@ -27,7 +27,7 @@ def run():
     #Inilización de los actuadores y establecimiento de las conexiones
     
     #PAGINAS PARA EL ENVIO Y RECEPCIÓN DE DATOS
-    URL_SERVIDOR = 'http://10.104.110.153:80'
+    URL_SERVIDOR = 'http://10.104.121.41:80'
     PAGINA_ENV = "/control/gato/1/mediciones/actualizacion/automatico/"
     PAGINA_REC = "/control/gato/1/comandos/lectura/"
     PAGINA_ENCENDIDO = "/control/gato/1/comandos/actualizacion/"
@@ -45,13 +45,13 @@ def run():
 
     #CONFIGURACIÓN PANTALLA Y CARGA DE IMAGENES A LA MEMORIA
     IMAGENES = Oled.carga_imagenes()
-    OLED_1 = Oled.configuracion_pantalla(1, 0x3D)
-    OLED_2 = Oled.configuracion_pantalla(1, 0x3C)
+    OLED_1 = Oled.configuracion_pantalla(1, 0x3C)
+    OLED_2 = Oled.configuracion_pantalla(1, 0x3D)
     #Expresiones extablecidas para cada expresión detectada
-    EXPRESIONES_NEUTRAL = [2, 4]
-    EXPRESIONES_FELICIDAD = [1]
+    EXPRESIONES_NEUTRAL = [1, 3]
+    EXPRESIONES_FELICIDAD = [0]
     EXPRESIONES_ENOJO = [1,3]
-    EXPRESIONES_TRISTEZA = [1,5]
+    EXPRESIONES_TRISTEZA = [1,4]
     #Expresiión inicial
     expresion = 0
     expresion_manual = 0
@@ -333,21 +333,28 @@ def run():
         if gas_humo == 1:
             audio.reproducir_audio(ruta_audio = '/home/gato/TT2/programa_gato/data/audios/alarma.mp3')
         
-        #Tacto en la cabeza
-        if PIN_HW139_1 == 1 and comandos_realizados == 1:
-            Servomotores.movCabeza(CONTROL_SERVOS, 1)
-            Oled.mostrar_imagen(1,OLED_1,OLED_2)
-            Servomotores.movCabeza(CONTROL_SERVOS, 3)
-        
-        #Tacto en la espalda
-        if (PIN_HW139_2 or PIN_HW139_3) == 1 and comandos_realizados == 1: 
-            Servomotores.realizarRutinaP1(CONTROL_SERVOS, 4)
-            time.sleep(1)
-            Servomotores.realizarRutinaP2(CONTROL_SERVOS, 4) 
+        if automatico == 1:
+            #Tacto en la cabeza
+            if HW139.deteccion_caricia(PIN_HW139_1) == 1 and comandos_realizados == 1:
+                print("Entra Tacto Cabeza")
+                Servomotores.movCabeza(CONTROL_SERVOS, 1)
+                Oled.mostrar_imagen(IMAGENES[1],OLED_1,OLED_2)
+                Servomotores.movCabeza(CONTROL_SERVOS, 3)
+                
+                
+            #Tacto en la espalda
+            if (HW139.deteccion_caricia(PIN_HW139_3) or HW139.deteccion_caricia(PIN_HW139_4)) == 1 and comandos_realizados == 1: 
+                print("Entra Tacto Espalda")
+                Servomotores.realizarRutinaP1(CONTROL_SERVOS, 4)
+                time.sleep(3)
+                Servomotores.realizarRutinaP2(CONTROL_SERVOS, 4) 
+                
 
-        #Tacto en la cola
-        if PIN_HW139_4 == 1 and comandos_realizados == 1:
-            Servomotores.movCola(CONTROL_SERVOS)
+            #Tacto en la cola
+            if HW139.deteccion_caricia(PIN_HW139_2) == 1 and comandos_realizados == 1:
+                print("Entra Tacto Cola")
+                Servomotores.movCola(CONTROL_SERVOS)
+            
             
             
 
