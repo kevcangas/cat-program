@@ -73,7 +73,14 @@ def rutinaControlada(tiempo_actual,
         Oled.mostrar_imagen(IMAGENES[expresion_seleccionada], oled1, oled2)
 
         #Movimiento servomotores
-        Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
+        if rutina_seleccionada == 6:
+            Servomotores.realizarRutinaP1(CONTROL_SERVOS, 7)
+            time.sleep(1)
+            Servomotores.caminar(CONTROL_SERVOS)
+            Servomotores.realizarRutinaP2(CONTROL_SERVOS, 7)
+        else:
+            Servomotores.realizarRutinaP1(CONTROL_SERVOS, rutina_seleccionada)
+
         mov_activado = True
 
         #Estblecimiento del tiempo en que se activa el movimiento

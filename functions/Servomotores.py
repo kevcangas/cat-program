@@ -73,23 +73,28 @@ def cargar_rutina(id_mov):
         with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/caminar_PD.json') as f:
             PD = json.load(f)
     
+    elif(id_mov==7):
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/pie_2_PT.json') as f:
+            PT = json.load(f)
+        with open(r'/home/gato/TT2/programa_gato/data/rutinas_py/pie_2_PD.json') as f:
+            PD = json.load(f)
+    
     return PT,PD 
 
 
 #Movimiento de una pata
 def movPatas(pca1,
+             pca2,
              matT,
              matD,
              i=0,
              k=0,
+             tiempo=0,
              PATAT_1=[0,1],
              PATAT_2=[2,3],
              PATAD_1=[4,5],
-             PATAD_2=[6,7],
-             pca2=None):
-    
-    if pca2==None:
-        pca2 = pca1
+             PATAD_2=[6,7]):
+
     if len(matT) == 1:
         matT=matT[0]
         #Pata trasera R 
@@ -99,6 +104,7 @@ def movPatas(pca1,
                 pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 30
             elif j == 1:
                 pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 5
+            sleep(tiempo)
 
         #Pata trasera L
         POSICION_SERVOS = [matT['q0v'][k], matT['q1v'][k], matT['q2v'][k]]
@@ -106,7 +112,8 @@ def movPatas(pca1,
             if j == 0:
                 pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 10
             elif j == 1:
-                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 50
+                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 70
+            sleep(tiempo)
     else:
         matT1 = matT[0]
         matT2 = matT[1]
@@ -117,6 +124,7 @@ def movPatas(pca1,
                 pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 30
             elif j == 1:
                 pca1.servo[PATAT_1[j]].angle = POSICION_SERVOS[j+1] - 5
+            sleep(tiempo)
 
         #Pata trasera L
         POSICION_SERVOS = [matT2['q0v'][k], matT2['q1v'][k], matT2['q2v'][k]]
@@ -124,7 +132,8 @@ def movPatas(pca1,
             if j == 0:
                 pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] + 10
             elif j == 1:
-                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 50
+                pca1.servo[PATAT_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 70
+            sleep(tiempo)
         
     #Patas delanteras
     if len(matD) == 1:
@@ -136,6 +145,7 @@ def movPatas(pca1,
                 pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 5
             elif j == 1:
                 pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 10
+            sleep(tiempo)
             
         #Pata delantera L
         POSICION_SERVOS = [matD['q0v'][i], matD['q1v'][i], matD['q2v'][i]]
@@ -144,6 +154,7 @@ def movPatas(pca1,
                 pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 15
             elif j == 1:
                 pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 5
+            sleep(tiempo)
          
     else:
         matD1 = matD[0]
@@ -155,6 +166,7 @@ def movPatas(pca1,
                 pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 5
             elif j == 1:
                 pca2.servo[PATAD_1[j]].angle = POSICION_SERVOS[j+1] + 10
+            sleep(tiempo)
             
         #Pata delantera L
         POSICION_SERVOS = [matD2['q0v'][i], matD2['q1v'][i], matD2['q2v'][i]]
@@ -163,19 +175,20 @@ def movPatas(pca1,
                 pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 15
             elif j == 1:
                 pca2.servo[PATAD_2[j]].angle = 180 - POSICION_SERVOS[j+1] - 5
+            sleep(tiempo)
 
 
 #Realiza el movimiento de la primera mitad de la rutina
-def realizarRutinaP1(pca1,rutina_seleccionada,pca2=None):
-    if pca2==None:
-        pca2 = pca1
+def realizarRutinaP1(pca1, rutina_seleccionada,pca2=None):
+    if pca2 == None:
+        pca2=pca1
     if rutina_seleccionada != 3:
         PT,PD = cargar_rutina(rutina_seleccionada)
         pasos_movimientos = len(PT['q0v'])
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos):
-            movPatas(pca1, [PT], [PD], i, i)
+            movPatas(pca1,pca2, [PT], [PD], i, i,0.001)
             #sleep(0.02)
     
     else:
@@ -184,21 +197,21 @@ def realizarRutinaP1(pca1,rutina_seleccionada,pca2=None):
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos):
-            movPatas(pca1, [PT], [PD1,PD2], i, i)
+            movPatas(pca1,pca2, [PT], [PD1,PD2], i, i,0.001)
             #sleep(0.02)
 
 
 #Esta función realiza el movimiento de la segunda mitad de la rutina
-def realizarRutinaP2(pca1, rutina_seleccionada, pca2=None):
-    if pca2==None:
-        pca2 = pca1
+def realizarRutinaP2(pca1, rutina_seleccionada,pca2=None):
+    if pca2 == None:
+        pca2=pca1
     if rutina_seleccionada != 3:
         PT,PD = cargar_rutina(rutina_seleccionada)
         pasos_movimientos = len(PT['q0v'])
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos, pasos_movimientos):
-            movPatas(pca1, [PT], [PD], i, i)
+            movPatas(pca1,pca2, [PT], [PD], i, i,0.001)
             #sleep(0.02)
     
     else:
@@ -207,25 +220,56 @@ def realizarRutinaP2(pca1, rutina_seleccionada, pca2=None):
         control_pasos = pasos_movimientos//2-1
 
         for i in range(control_pasos, pasos_movimientos):
-            movPatas(pca1, [PT], [PD1,PD2], i, i)
+            movPatas(pca1,pca2, [PT], [PD1,PD2], i, i,0.001)
             #sleep(0.02)
 
 
 def caminar(pca1, rutina_seleccionada = 6, pca2=None):
-    if pca2 == None:
-        pca2 = pca1
+    pca2 = pca1
     PT,PD = cargar_rutina(rutina_seleccionada)
     pasos_movimientos = len(PT['q0v'])
     control_pasos = pasos_movimientos//2-1
+    #print(control_pasos)
 
+    i=0
+
+    for j in range(1,51):
+        movPatas(pca1,pca2, [PT], [PD], i=j, k=i,tiempo=0.002)
     i = 0
-    j = 50
-    for _ in range(control_pasos):
-        movPatas(pca1,pca2, [PT], [PD], i=i, k=j)
-        i+=1
+    j=50
+
+    #1 paso
+    for pasos in range(control_pasos):
+        movPatas(pca1,pca2, [PT], [PD], i=j, k=i,tiempo=0.002)
         j+=1
-        if j == control_pasos:
+        i+=1
+        if j == control_pasos: 
             j = 0
+    i = 0
+    j=50
+
+    #2 paso
+    for pasos in range(control_pasos):
+        movPatas(pca1,pca2, [PT], [PD], i=j, k=i,tiempo=0.002)
+        j+=1
+        i+=1
+        if j == control_pasos: 
+            j = 0
+    i = 0
+    j=50
+
+    #3 paso
+    for pasos in range(control_pasos):
+        movPatas(pca1,pca2, [PT], [PD], i=j, k=i,tiempo=0.002)
+        j+=1
+        i+=1
+        if j == control_pasos: 
+            j = 0
+    
+    #Final
+    for pasos in range(50,100):
+        movPatas(pca1,pca2, [PT], [PD], i=j, k=i,tiempo=0.002)
+        j+=1
         
 
 
@@ -271,7 +315,7 @@ def movCabeza(pca,
         pca.servo[CABEZA].angle = 115
         pca.servo[OREJAS].angle = 90
 
-        rutina_boca = [130,100,130]
+        rutina_boca = [90,130,90]
         for i in range(len(rutina_boca)):
             pca.servo[BOCA].angle = rutina_boca[i]
             if i == 1:
@@ -279,9 +323,9 @@ def movCabeza(pca,
             sleep(0.5)
 
 def movCola(pca,
-            COLA = 12
-            ):
-    rutina_cola = [10, 110, 10]
+            COLA=12):
+
+    rutina_cola = [130,100,130]
     for i in range(len(rutina_cola)):
-        pca.servo[COLA].angle = rutina_cola[i]
-        sleep(1)
+            pca.servo[COLA].angle = rutina_cola[i]
+            sleep(1)

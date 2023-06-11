@@ -100,7 +100,7 @@ def run():
     rutina = 0
     #Posición inicial
     PT, PD =  Servomotores.cargar_rutina(rutina)
-    Servomotores.movPatas(CONTROL_SERVOS,[PT],[PD])
+    Servomotores.movPatas(CONTROL_SERVOS,CONTROL_SERVOS,[PT],[PD])
     #Rutinas
     RUTINAS_NEUTRAL = [0, 1, 2, 4, 6]
     RUTINAS_FELICIDAD = [1, 3]
